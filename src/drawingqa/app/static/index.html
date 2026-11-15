@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>PlanProof · a companion to Stoa</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;500;600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/static/app.css">
+</head>
+<body>
+<header class="masthead">
+  <nav class="topbar">
+    <a class="wordmark" href="/" aria-label="PlanProof home">
+      <svg class="mark" viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="2.5" width="19" height="19" rx="2.5"/><path d="M2.5 11h9.5V2.5M12 11v10.5M12 15h9.5"/><rect class="pin" x="14.5" y="4.5" width="5" height="4" rx=".8"/></svg>
+      <span>PlanProof</span>
+    </a>
+    <div class="tabs" role="tablist">
+      <button role="tab" class="tab active" data-tab="live" aria-selected="true">Live blueprint</button>
+      <button role="tab" class="tab" data-tab="bench" aria-selected="false">Benchmark</button>
+    </div>
+    <div class="model-picker">
+      <span id="modelDot" class="dot" title="Checking model endpoint"></span>
+      <select id="modelSelect" aria-label="Model endpoint"></select>
+    </div>
+  </nav>
+  <div class="hero">
+    <h1 class="display">Every number, with the proof drawn on it.</h1>
+    <p>A companion to Stoa for drawings. Ask any blueprint a question and see the symbol behind every answer, read by NVIDIA&nbsp;Nemotron or taken straight from the CAD and BIM&nbsp;files.</p>
+  </div>
+</header>
+
+<main>
+  <!-- Live blueprint -->
+  <section id="tab-live" class="tabpanel" role="tabpanel">
+    <div class="live-grid">
+      <aside class="card side">
+        <div class="card-title">Drawing</div>
+        <label id="dropzone" class="dropzone" tabindex="0">
+          <input id="fileInput" type="file" accept=".png,.jpg,.jpeg,.webp,.pdf" hidden>
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 16V4m0 0-4.5 4.5M12 4l4.5 4.5M4 15v3.5A1.5 1.5 0 0 0 5.5 20h13a1.5 1.5 0 0 0 1.5-1.5V15"/></svg>
+          <strong>Drop any blueprint</strong>
+          <span>PNG, JPG or PDF · or click to browse</span>
+        </label>
+        <div class="eyebrow">Or start from a sample</div>
+        <div id="samples" class="samples"></div>
+      </aside>
+
+      <section class="card viewer-card">
+        <div class="viewer-head">
+          <div class="viewer-title"><span id="liveTitle">Choose a drawing</span><small id="liveSubtitle"></small></div>
+          <div class="segmented" id="liveLayer" hidden>
+            <button data-layer="detect" class="active">Inventory</button>
+            <button data-layer="answer">Answer evidence</button>
+          </div>
+        </div>
+        <div id="liveViewer" class="viewer"></div>
+      </section>
+
+      <aside class="side-right">
+        <section class="card">
+          <div class="card-title">Detect everything <span class="muted small">openings · fixtures · rooms · structure</span></div>
+          <div class="pad">
+            <button id="detectBtn" class="btn primary wide" disabled>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 8V5.5A1.5 1.5 0 0 1 5.5 4H8m8 0h2.5A1.5 1.5 0 0 1 20 5.5V8m0 8v2.5a1.5 1.5 0 0 1-1.5 1.5H16m-8 0H5.5A1.5 1.5 0 0 1 4 18.5V16M8 12h8"/></svg>
+              <span>Detect everything</span>
+            </button>
+            <div id="detectMeta" class="meta"></div>
+            <div id="kindChips" class="chips"></div>
+            <div id="roomChips" class="chips rooms"></div>
+          </div>
+        </section>
+        <section class="card">
+          <div class="card-title">Ask the drawing</div>
+          <div class="pad">
+            <form id="askForm" class="composer">
+              <textarea id="askInput" rows="2" placeholder="How many doors are on this plan?  ·  Kuinka monta ikkunaa?" disabled></textarea>
+              <button id="askBtn" class="send" type="submit" aria-label="Ask" disabled>
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h13m0 0-5.5-5.5M18 12l-5.5 5.5"/></svg>
+              </button>
+            </form>
+            <div id="suggestions" class="chips suggestions"></div>
+          </div>
+        </section>
+        <section id="answerCard" class="card answer-card" hidden></section>
+      </aside>
+    </div>
+  </section>
+
+  <!-- Benchmark -->
+  <section id="tab-bench" class="tabpanel" role="tabpanel" hidden>
+    <div class="bench-head">
+      <div>
+        <div class="eyebrow">Evaluation run</div>
+        <select id="runSelect" aria-label="Saved run"></select>
+      </div>
+      <p class="muted small">Final answers only. Abstentions and errors stay in the denominator; a <em>needs review</em> answer is never counted as correct.</p>
+    </div>
+    <div id="kpis" class="kpis"></div>
+    <section class="card">
+      <div class="card-title">Accuracy by dataset <span class="muted small">click a dataset to explore its drawings</span></div>
+      <div id="datasetBars" class="bars"></div>
+    </section>
+    <section id="galleryCard" class="card" hidden>
+      <div class="card-title"><span id="galleryTitle"></span><span id="galleryCount" class="muted small"></span></div>
+      <div id="gallery" class="gallery"></div>
+    </section>
+    <div id="benchWork" class="bench-grid" hidden>
+      <section class="card viewer-card">
+        <div class="viewer-head">
+          <div class="viewer-title"><span id="benchTitle"></span><small id="benchSubtitle"></small></div>
+        </div>
+        <div id="benchViewer" class="viewer"></div>
+      </section>
+      <section class="card qcard">
+        <div class="card-title">
+          <span>Questions from the dataset</span>
+          <button id="runAllBtn" class="btn small">Run all live</button>
+        </div>
+        <div id="questionTable" class="qtable"></div>
+        <div id="benchDetail" class="bench-detail"></div>
+      </section>
+    </div>
+  </section>
+</main>
+
+<footer class="foot">
+  PlanProof · built at Junction 2026 for the Stoa <em>Make Blueprints Talk</em> challenge · NVIDIA Nemotron Nano Omni · Evidence boxes are model predictions until a human reviews them.
+</footer>
+<div id="toast" class="toast" role="status" aria-live="polite"></div>
+<script src="/static/app.js"></script>
+</body>
+</html>

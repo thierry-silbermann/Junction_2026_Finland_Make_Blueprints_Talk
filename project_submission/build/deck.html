@@ -3,48 +3,61 @@
 <head>
 <meta charset="utf-8">
 <title>PlanProof – pitch deck</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;500;600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">
 <style>
   @page { size: 1920px 1080px; margin: 0; }
-  :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --nv:#76b900; --green:#16a34a; --orange:#ea580c; --blue:#2563eb; --paper:#f8fafc; }
+  :root { --ink:#011e01; --forest:#152e14; --forest-2:#2c412b; --muted:#617061; --line:#dcdcdc; --moss:oklch(76.68% .0614 144.21);
+          --nv:#76b900; --green:#2c412b; --paper:#f2f3f5; --amber:#8a5a00; --red:#662c23;
+          --shadow:0 0 0 1px #0000000d, 0 1px 2px #0000000a, 0 6px 16px -8px #00000014; }
   * { box-sizing: border-box; }
-  html, body { margin: 0; padding: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-  .slide { width: 1920px; height: 1080px; padding: 90px 110px; position: relative; overflow: hidden; page-break-after: always; break-after: page; background: white; display: flex; flex-direction: column; }
+  html, body { margin: 0; padding: 0; font-family: "Hanken Grotesk", "Helvetica Neue", Arial, sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { width: 1920px; height: 1080px; padding: 90px 110px; position: relative; overflow: hidden; page-break-after: always; break-after: page; background: var(--paper); display: flex; flex-direction: column; }
   .slide:last-child { page-break-after: auto; break-after: auto; }
-  .dark { background: var(--ink); color: white; }
-  .dark .muted { color: #cbd5e1; }
-  h1 { font-size: 120px; margin: 0; letter-spacing: -3px; }
-  h2 { font-size: 64px; margin: 0 0 40px; letter-spacing: -1.5px; line-height: 1.08; }
+  .dark { background: radial-gradient(120% 90% at 85% 0%, #2c412b 0%, #152e14 45%, #011e01 100%); color: #f2f3f5; }
+  .dark .muted { color: #adb7ad; }
+  .dark .footer { color: #808e80; }
+  h1, h2, h3, .big, td.num { font-family: Gelasio, Georgia, serif; font-weight: 500; letter-spacing: -.015em; }
+  h1 { font-size: 132px; margin: 0; }
+  h2 { font-size: 62px; margin: 0 0 40px; line-height: 1.1; }
   h3 { font-size: 34px; margin: 0 0 14px; }
   p, li { font-size: 32px; line-height: 1.4; }
+  b { font-weight: 600; }
   .muted { color: var(--muted); }
-  .kicker { font-size: 24px; letter-spacing: 3px; text-transform: uppercase; color: var(--nv); font-weight: 700; margin-bottom: 18px; }
-  .footer { position: absolute; bottom: 36px; left: 110px; right: 110px; display: flex; justify-content: space-between; font-size: 20px; color: #94a3b8; }
+  .kicker { font-size: 22px; letter-spacing: 3px; text-transform: uppercase; color: var(--forest-2); font-weight: 600; margin-bottom: 18px; }
+  .dark .kicker { color: var(--moss); }
+  .footer { position: absolute; bottom: 36px; left: 110px; right: 110px; display: flex; justify-content: space-between; font-size: 20px; color: #808e80; }
   .row { display: flex; gap: 60px; flex: 1; min-height: 0; }
   .col { flex: 1; min-width: 0; display: flex; flex-direction: column; }
-  .fig { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: 18px; }
+  .fig { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; background: white; border-radius: 18px; padding: 18px; box-shadow: var(--shadow); }
   .fig img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .fig.shot { padding: 0; overflow: hidden; }
+  .fig.shot img { border-radius: 18px; }
   .cap { font-size: 24px; color: var(--muted); margin-top: 14px; line-height: 1.35; }
-  .big { font-size: 140px; font-weight: 800; letter-spacing: -4px; line-height: 1; }
-  .stat { flex: 1; border-top: 8px solid var(--nv); padding-top: 24px; }
+  .big { font-size: 140px; line-height: 1; }
+  .stat { flex: 1; border-top: 6px solid var(--forest-2); padding-top: 24px; }
   .stat .big { font-size: 110px; }
   .stat p { font-size: 28px; margin: 14px 0 0; }
-  .pill { display: inline-block; padding: 8px 20px; border-radius: 999px; font-size: 24px; font-weight: 700; margin-right: 10px; }
-  .g { background: #dcfce7; color: #166534; } .o { background: #ffedd5; color: #9a3412; } .b { background: #dbeafe; color: #1e40af; } .n { background: #ecfccb; color: #3f6212; }
-  table { border-collapse: collapse; width: 100%; font-size: 30px; }
-  th, td { text-align: left; padding: 18px 20px; border-bottom: 2px solid var(--line); }
-  th { font-size: 22px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
-  td.num { font-weight: 800; font-size: 38px; }
+  .pill { display: inline-block; padding: 8px 20px; border-radius: 999px; font-size: 24px; font-weight: 600; margin-right: 10px; }
+  .g { background: #dfe8dc; color: #152e14; } .o { background: #fbecc8; color: var(--amber); } .b { background: #e7e9e4; color: #2c412b; } .n { background: #ecf5d9; color: #3f6212; }
+  .dark .n { background: var(--nv); color: #011e01; } .dark .b { background: #f2f3f5; color: #011e01; }
+  table { border-collapse: collapse; width: 100%; font-size: 30px; background: white; border-radius: 18px; overflow: hidden; box-shadow: var(--shadow); }
+  th, td { text-align: left; padding: 18px 24px; border-bottom: 1px solid var(--line); }
+  th { font-size: 20px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); font-weight: 600; }
+  td.num { font-size: 40px; }
   .route { display: flex; gap: 30px; align-items: stretch; margin-top: 10px; }
-  .box { flex: 1; border: 3px solid var(--line); border-radius: 20px; padding: 30px; background: white; }
+  .box { flex: 1; border: 1px solid var(--line); border-radius: 18px; padding: 30px; background: white; box-shadow: var(--shadow); }
   .box h3 { font-size: 42px; }
   .box p { font-size: 30px; margin: 12px 0; }
-  .arrow { font-size: 60px; color: #94a3b8; align-self: center; }
-  .q { background: var(--paper); border-left: 10px solid var(--nv); padding: 26px 34px; font-size: 34px; border-radius: 0 16px 16px 0; margin: 0 0 40px; }
-  .card { background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: 28px 32px; font-size: 25px; line-height: 1.5; }
-  .card code { font-size: 23px; background: #e2e8f0; padding: 2px 8px; border-radius: 6px; }
+  .arrow { font-size: 60px; color: #adb7ad; align-self: center; }
+  .q { background: white; border-left: 10px solid var(--forest-2); padding: 26px 34px; font-size: 34px; border-radius: 0 16px 16px 0; margin: 0 0 40px; box-shadow: var(--shadow); }
+  .card { background: white; border-radius: 18px; padding: 28px 32px; font-size: 25px; line-height: 1.5; box-shadow: var(--shadow); }
+  code { font-family: "JetBrains Mono", Menlo, monospace; }
+  .card code { font-size: 22px; background: #eceee9; padding: 2px 8px; border-radius: 6px; }
   ul { margin: 0; padding-left: 36px; } li { margin-bottom: 14px; }
   .crit { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; flex: 1; }
-  .crit .box { border-top: 10px solid var(--nv); }
+  .crit .box { border-top: 8px solid var(--forest-2); }
   .crit .box h3 { font-size: 48px; }
   .crit .box p { font-size: 34px; }
   .roomy p, .roomy li { font-size: 38px; }
@@ -81,7 +94,7 @@
       </ul>
       <p class="muted" style="font-size:26px; margin-top:auto;">Right: Nemotron's answer "6 doors" happens to be correct, but its boxes form an invented column. PlanProof's guard flags it as <span class="pill o">needs review</span>.</p>
     </div>
-    <div class="col"><div class="fig"><img src="../assets/cubicasa_doors_review.png"></div></div>
+    <div class="col" style="flex:1.35;"><div class="fig shot"><img src="../assets/app_problem.png"></div></div>
   </div>
   <div class="footer"><span>Stoa figure: design-partner interviews, July 2026 (stoabuild.com)</span><span>2</span></div>
 </section>
@@ -111,7 +124,7 @@
     <div class="box" style="border-color:#d9f99d;"><span class="pill n">3 · Vision</span><h3 style="margin-top:20px;">Nemotron Nano Omni</h3><p>Scans and raster plans</p><p class="muted">Strict JSON evidence (0..1000 boxes), Python counting, de-duplication, invented-pattern guard, abstention</p><p><b>~1k tokens / question</b></p></div>
   </div>
   <div class="row" style="margin-top:40px; flex:none;">
-    <div class="col"><div class="card">Every route returns the same <code>Prediction</code>: answer · status (<i>answered</i> / <i>needs review</i>) · evidence with provenance (<code>dxf_entity</code>, <code>ifc_entity</code>, <code>model_prediction</code>) · justification · tokens and latency. All of it lands in one interactive review report.</div></div>
+    <div class="col"><div class="card">Every route returns the same <code>Prediction</code>: answer · status (<i>answered</i> / <i>needs review</i>) · evidence with provenance (<code>dxf_entity</code>, <code>ifc_entity</code>, <code>model_prediction</code>) · justification · tokens and latency. All of it is drawn live in the PlanProof app and exported to a review report.</div></div>
   </div>
   <div class="footer"><span>Questions in English, Finnish, German, French, Italian, Estonian and more</span><span>4</span></div>
 </section>
@@ -137,13 +150,13 @@
 
 <!-- 6. Visualization: Nemotron -->
 <section class="slide">
-  <div class="kicker">Reasoning you can verify · NVIDIA Nemotron on scans</div>
-  <h2>Nemotron proposes boxes. Python counts them, and flags anything that looks wrong.</h2>
+  <div class="kicker">The live app · NVIDIA Nemotron on any blueprint</div>
+  <h2>Drop in a drawing. Detect everything, or ask in your own language.</h2>
   <div class="row">
-    <div class="col"><div class="fig"><img src="../assets/cubicasa_toilets_vlm.png"></div><div class="cap"><span class="pill g">answered</span> "How many toilet bowls?" → 2, both boxed. Expected 2.</div></div>
-    <div class="col"><div class="fig"><img src="../assets/cubicasa_doors_review.png"></div><div class="cap"><span class="pill o">needs review</span> Six identical boxes along one line: the guard holds the answer back and shows the proposal (6) for a human to confirm.</div></div>
+    <div class="col"><div class="fig shot"><img src="../assets/app_live_detect.png"></div><div class="cap"><span class="pill g">detect all</span> A Finnish archive scan from the Finna collection: windows, rooms, stairs and fixtures boxed in one click.</div></div>
+    <div class="col"><div class="fig shot"><img src="../assets/app_live_answer.png"></div><div class="cap"><span class="pill g">answered</span> Asked in Finnish: "how many sinks and wash basins?" → 2, both boxed, matches the dataset.</div></div>
   </div>
-  <div class="footer"><span>CubiCasa5K, CC BY-NC-SA 4.0 · model: nvidia/nemotron-3-nano-omni-30b-a3b-reasoning (thinking off, top_k 1)</span><span>6</span></div>
+  <div class="footer"><span>CubiCasa5K, CC BY-NC-SA 4.0 · scan from finna.fi · model: nvidia/nemotron-3-nano-omni-30b-a3b-reasoning (thinking off, top_k 1)</span><span>6</span></div>
 </section>
 
 <!-- 7. Detector -->
@@ -200,7 +213,7 @@
   <h2>Built for all four, at 25% each.</h2>
   <div class="crit">
     <div class="box"><h3>Accuracy</h3><p>99–100% on CAD/BIM-backed drawings; abstains instead of guessing on scans; measured with the dataset's own scoring rules.</p></div>
-    <div class="box"><h3>Visualized reasoning</h3><p>Numbered boxes on the real page, IFC GlobalIds, route and one-line reason per answer; filters and review export in one HTML file.</p></div>
+    <div class="box"><h3>Visualized reasoning</h3><p>Numbered boxes on the real page, IFC GlobalIds, route and one-line reason per answer; a live app to detect or ask on any drawing, and a benchmark tab to replay every question.</p></div>
     <div class="box"><h3>Creativity</h3><p>The blueprint's own source as ground truth; CAD files as free detector labels; a guard against invented evidence.</p></div>
     <div class="box"><h3>Low inference cost</h3><p>0 tokens for a third of questions; 3B-active Nemotron for the rest; language-shared cache; open weights.</p></div>
   </div>
@@ -238,7 +251,7 @@
   <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
     <h1>PlanProof</h1>
     <p style="font-size:54px; margin:24px 0 50px; font-weight:300;">Every number, with the proof drawn on it.</p>
-    <p class="muted" style="font-size:30px;">Code: github.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk<br>Demo: the review report in project_submission/demo</p>
+    <p class="muted" style="font-size:30px;">Code: github.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk<br>Live app: <code>drawingqa serve</code> → Live blueprint + Benchmark tabs · static report in project_submission/demo</p>
     <div class="logos"><span class="pill n">NVIDIA Nemotron 3 Nano Omni</span><span class="pill b">Stoa · Make Blueprints Talk</span></div>
   </div>
   <div class="footer"><span>Junction 2026</span><span>12</span></div>

@@ -31,7 +31,12 @@ Site engineers spend hours a day hunting for facts buried in drawings: how many 
 2. **NVIDIA Nemotron 3 Nano Omni for everything else** (scans, raster plans). The model doesn't answer with a bare number. It returns an inventory of evidence boxes in strict JSON, and Python does the counting. The boxes are validated and de-duplicated, and a guard flags invented patterns, such as six "doors" stamped in a straight column. In those cases PlanProof returns *needs review* with its proposed answer, instead of a confident wrong number.
 3. **A small symbol detector (YOLO11n, 2.6M parameters)**, trained on labels generated *for free* from the Swiss DXF files, with no hand labelling. It reaches mAP@50 0.89 on held-out sites and already boxes the real doors on Finnish CubiCasa scans it never saw. This is the part next year's frontier models won't make obsolete: it gets cheaper and better with every CAD file Stoa ingests.
 
-**Verification is the product.** Every answer lands in an interactive HTML report: the page, numbered boxes (green = counted, orange = uncertain), a one-line justification, the route that answered (DXF / IFC / VLM), filters per dataset, and a review export. A human can confirm or reject an answer in seconds.
+**Verification is the product.** PlanProof ships as a two-tab web app, styled as a Stoa companion:
+
+- **Live blueprint.** Drop in any drawing (PNG, JPG or PDF), even a century-old archive scan. Press *Detect everything*, and Nemotron boxes every door, window, fixture, room and staircase, colour-coded with counts per kind. You can also type a question in English, Finnish or any other language. The answer comes back with numbered boxes on the page, a one-line reason, the route that answered (DXF · 0 tokens, IFC take-off, or Nemotron), its token cost, and a ✓ when the drawing is from the dataset and the answer matches.
+- **Benchmark.** Accuracy per dataset with the dataset's own scoring rules. Any image opens with its questions, the expected answer and the saved answer, and every question can be re-run live against the model.
+
+A human can confirm or reject an answer in seconds. A static HTML review report (filters, review export, no server) is also published for every run.
 
 **Results** (held-out sample, 805 questions across 5 dataset folders, dataset scoring rules: exact counts, 2% on areas):
 
@@ -57,7 +62,7 @@ Site engineers spend hours a day hunting for facts buried in drawings: how many 
 | Criterion (25% each) | What PlanProof does |
 |---|---|
 | Accuracy | 99–100% where a CAD/BIM source exists; the vision path abstains (*needs review*) instead of guessing; scored with the dataset's own rules |
-| Visualized reasoning | Numbered boxes on the actual page, mapped from DXF entities or the model's inventory; IFC GlobalIds; route and justification per answer; review export |
+| Visualized reasoning | Live app: drop any drawing, detect everything or ask a question, and see numbered boxes on the actual page (from DXF entities or the model's inventory), IFC GlobalIds, route, cost and justification per answer; a benchmark tab replays every dataset question; review export |
 | Creativity | Uses the blueprint's own source as ground truth, and turns CAD files into free detector labels; a guard against invented boxes |
 | Low inference cost | 0 tokens for ~1/3 of questions; 3B-active Nemotron for the rest; cache shared across languages; reduced mode with −53% requests on CubiCasa; self-hostable open weights with a one-command GPU setup |
 
@@ -68,7 +73,9 @@ Site engineers spend hours a day hunting for facts buried in drawings: how many 
 - PyMuPDF (PDF rendering, page geometry), Pillow.
 - ezdxf (DXF layers to evidence boxes), IfcOpenShell 0.8 (IFC take-off, unit scaling, geometry for room areas).
 - Ultralytics YOLO11n + PyTorch (symbol detector trained on DXF-generated labels).
+- FastAPI + uvicorn web app (`drawingqa serve`) with a dependency-free HTML/CSS/JavaScript front end: Live blueprint and Benchmark tabs.
 - A self-contained HTML/JavaScript review report (no server needed).
+- Playwright (Chrome DevTools screencast) and ffmpeg to record the app for the video.
 - Qwen3-VL-8B preset for model comparison.
 - Data: the Junction construction-drawing dataset (Swiss Dwellings, CubiCasa5K, IFC models, Opening Design, IFC-Bench).
 
@@ -78,6 +85,7 @@ Site engineers spend hours a day hunting for facts buried in drawings: how many 
 |---|---|
 | Source code | <https://github.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk> |
 | Live demo (review report) | <https://raw.githack.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk/main/project_submission/demo/index.html> (works once the repo is pushed and public; GitHub Pages is an alternative, see README) |
+| Live app (local) | `pip install -e '.[app]' && drawingqa serve`, then <http://127.0.0.1:8000/>; it is shown in the video. It needs `NVIDIA_API_KEY` for drawings that are not cached |
 | Video pitch (≤ 2:00) | `TODO: paste YouTube/Vimeo link (set to Public or Unlisted)` |
 | Pitch deck (PDF) | `project_submission/PlanProof_pitch_deck.pdf` (upload it, and link the GitHub copy) |
 

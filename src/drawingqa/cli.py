@@ -296,7 +296,38 @@ def build_parser():
     check.add_argument("--probe",action="store_true",help="GET model endpoint metadata; no image inference")
     d=sub.add_parser("demo",help="Synthetic fixture demo, no real model or accuracy results")
     d.add_argument("--output",type=Path,default=Path("runs/demo"))
+    s=sub.add_parser("serve",help="Live two-tab demo app (install the app extra: pip install -e '.[app]')")
+    s.add_argument("--config",type=Path,default=Path("configs/models.yaml"))
+    s.add_argument("--data-root",type=Path,default=Path("data"))
+    s.add_argument("--questions",type=Path,help="Questions JSONL (default: DATA_ROOT/questions.jsonl)")
+    s.add_argument("--runs-dir",type=Path,default=Path("runs"))
+    s.add_argument("--run",default="per-folder-6-v2",help="Saved run shown first in the Benchmark tab")
+    s.add_argument("--output",type=Path,default=Path("runs/live"),help="Rendered pages, uploads and thumbnails")
+    s.add_argument("--profile",help="Named run profile from the config")
+    s.add_argument("--strategy",choices=["per_question","per_drawing"],default="per_drawing",
+                   help="per_drawing lets questions reuse the Detect everything inventory")
+    s.add_argument("--host",default="127.0.0.1")
+    s.add_argument("--port",type=int,default=8000)
+    s.add_argument("--no-probe",action="store_true",help="Do not contact model endpoints for status dots")
     return parser
+
+
+def serve(args):
+    try:
+        import uvicorn
+        from .app.server import create_app
+    except ImportError as exc:
+        raise ValueError(f"The demo app needs the app extra ({exc.name} missing): pip install -e '.[app]'") from None
+    config=load_config(args.config)
+    if args.profile:
+        config.apply_profile(args.profile)
+    config.pipeline=PipelineConfig.model_validate({**config.pipeline.model_dump(),"strategy":args.strategy})
+    questions=args.questions or args.data_root/"questions.jsonl"
+    app=create_app(config,args.data_root,runs_dir=args.runs_dir,output=args.output,
+                   questions=questions if questions.is_file() else None,default_run=args.run,
+                   probe_models=not args.no_probe)
+    print(f"PlanProof demo on http://{args.host}:{args.port}",file=sys.stderr)
+    uvicorn.run(app,host=args.host,port=args.port,log_level="warning")
 
 
 def main(argv=None):
@@ -308,6 +339,8 @@ def main(argv=None):
             doctor(args.config,args.probe)
         elif args.command=="demo":
             demo(args.output.resolve())
+        elif args.command=="serve":
+            serve(args)
         elif args.command=="report":
             print(create_report(args.run.resolve()))
         elif args.command=="compare":

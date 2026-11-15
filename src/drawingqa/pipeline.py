@@ -254,9 +254,8 @@ class Pipeline:
             if provider is not None and hasattr(provider, "close"):
                 provider.close()
 
-    def _answer_from_inventory(self, result: Prediction, pages, selector: inventory.Selector, model_config) -> bool:
-        """Fill `result` from the shared page inventory; False means use the per-question route."""
-        group = inventory.group_of(selector)
+    def _inventory(self, pages, group: str, model_config, usage: Usage):
+        """One group's shared page inventory: (entries, complete, warnings); entries is None on failure."""
         settings = self.config.pipeline.model_copy(update={"views": "overview"})
         model_config = model_config.model_copy(update={
             "max_tokens": settings.inventory_max_tokens,
@@ -271,24 +270,22 @@ class Pipeline:
                 # Concurrent questions about the same page wait here and reuse the first response.
                 with self.cache.locked(key):
                     if key in self._failed_inventories:
-                        result.warnings.append(self._failed_inventories[key])
-                        return False
+                        return None, False, [self._failed_inventories[key]]
                     found = self.cache.get(key, DrawingInventory)
                     if found is not None:
-                        result.usage.cached_requests += 1
+                        usage.cached_requests += 1
                     else:
                         try:
                             provider = provider or self.provider_factory(model_config)
                             response = provider.generate(system, prompt, [view.path])
-                            add_usage(result.usage, response.usage)
+                            add_usage(usage, response.usage)
                             found = parse_inventory(response.content, model_config.bbox_scale)
                         except (ProviderError, ValueError) as exc:
                             if getattr(exc, "usage", None):
-                                add_usage(result.usage, exc.usage)
+                                add_usage(usage, exc.usage)
                             # Remembered for this run so the page's other questions do not repeat the request.
                             self._failed_inventories[key] = f"Shared '{group}' inventory failed ({exc}); answered per question"
-                            result.warnings.append(self._failed_inventories[key])
-                            return False
+                            return None, False, [self._failed_inventories[key]]
                         self.cache.put(key, found)
                 complete = complete and found.complete
                 warnings.extend(found.warnings)
@@ -297,6 +294,31 @@ class Pipeline:
         finally:
             if provider is not None and hasattr(provider, "close"):
                 provider.close()
+        return entries, complete, warnings
+
+    def forget_failures(self) -> None:
+        """Let a long-lived pipeline retry inventories that failed on an earlier request."""
+        self._failed_inventories.clear()
+
+    def inventory_page(self, reference: str, group: str, model_alias: str, page: int | None = None) -> dict:
+        """Inventory one group of kinds on a drawing, outside any question."""
+        if group not in inventory.GROUPS:
+            raise ValueError(f"Unknown inventory group {group!r}")
+        path = self.index.resolve(reference)
+        if path.suffix.lower() not in SUPPORTED_EXTENSIONS - {".ifc"}:
+            raise ValueError(f"Detection needs a raster image or PDF, not {path.suffix}")
+        pages = render_pages(path, self.output / "assets", sha256_file(path), self.config.pipeline, page)
+        usage = Usage(estimated_cost_usd=0)
+        entries, complete, warnings = self._inventory(pages, group, self.config.models[model_alias], usage)
+        return {"pages": pages, "entries": entries or [], "complete": complete,
+                "failed": entries is None, "warnings": warnings, "usage": usage}
+
+    def _answer_from_inventory(self, result: Prediction, pages, selector: inventory.Selector, model_config) -> bool:
+        """Fill `result` from the shared page inventory; False means use the per-question route."""
+        entries, complete, warnings = self._inventory(pages, inventory.group_of(selector), model_config, result.usage)
+        if entries is None:
+            result.warnings.extend(warnings)
+            return False
         result.route = "vlm-inventory"
         result.category = selector.category
         result.warnings.extend(warnings)

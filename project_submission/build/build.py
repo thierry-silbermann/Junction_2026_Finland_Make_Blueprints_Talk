@@ -1,7 +1,8 @@
-"""Build the pitch deck PDF and a narrated draft video (<= 1:55) from deck.html.
+"""Build the pitch deck PDF and a narrated draft video (<= 1:55) from deck.html and app footage.
 
+App clips come from record_app.py (build/footage/*.mp4); missing clips fall back to a slide.
 Needs Google Chrome, ffmpeg and macOS `say`. Run from the repo root:
-    .venv/bin/python project_submission/build/build.py [--voice Samantha] [--skip-video]
+    .venv/bin/python project_submission/build/build.py [--voice Samantha] [--skip-video] [--slides-only]
 """
 
 from __future__ import annotations
@@ -16,32 +17,39 @@ import fitz
 
 BUILD = Path(__file__).resolve().parent
 OUT = BUILD.parent
+FOOTAGE = BUILD / "footage"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
 DECK_PDF = OUT / "PlanProof_pitch_deck.pdf"
 VIDEO = OUT / "PlanProof_pitch_draft.mp4"
 MAX_SECONDS = 115
 
-# (slide number, narration) in playback order; mirrors VIDEO_SCRIPT.md.
+# (visual, narration) in playback order; mirrors VIDEO_SCRIPT.md.
+# An int is a deck slide; a string is an app clip recorded by record_app.py.
 SEGMENTS = [
-    (1, "Site engineers lose hours every day hunting through drawings. Stoa answers project questions "
-        "with the page behind every sentence. We built PlanProof to give the symbol behind every number."),
-    (2, "Ask a vision model how many doors are on this plan, and it may say six, and even be right. "
-        "But look at its boxes: a straight column of doors that don't exist. You can't trust a number you can't check."),
-    (4, "PlanProof routes every question to the most reliable source. Many drawings ship with their CAD or BIM file. "
-        "When we find the DXF or the IFC model, we answer from it directly: zero tokens, deterministic, "
-        "every element mapped back onto the sheet. For scans, NVIDIA Nemotron Nano Omni returns an inventory of boxes, "
-        "and Python does the counting."),
-    (5, "Every answer opens in a review report: the page, numbered boxes, a one-line reason, and which route answered."),
-    (6, "Suspicious patterns are flagged as needs review, not guessed. A human verifies in seconds."),
-    (8, "On held-out data: ninety-nine percent on Swiss plans, and one hundred percent on more than three thousand "
-        "IFC questions in nine languages."),
-    (9, "A third of all questions cost zero tokens. The rest run on Nemotron's three billion active parameters, "
-        "about a thousand tokens per question, and its open weights can be self-hosted in the EU."),
-    (7, "And this is what won't be obsolete next year: we turned CAD files into free training labels. "
-        "Our tiny detector already finds the real doors on Finnish scans it has never seen. "
-        "Every CAD file Stoa connects makes it better."),
+    (1, "Site engineers lose hours every day hunting through drawings. Stoa answers with the page behind every "
+        "sentence. PlanProof adds the symbol behind every number."),
+    ("bench_problem", "Ask a vision model how many doors are on this plan. It says six, and is even right. "
+                      "But look at its boxes: a straight column of doors that don't exist. "
+                      "PlanProof holds that answer back for review, instead of guessing."),
+    (4, "So PlanProof routes every question to the most reliable source. When a drawing ships with its CAD or BIM "
+        "file, we answer from it directly: zero tokens, deterministic. For scans, NVIDIA Nemotron Nano Omni returns "
+        "an inventory of boxes, and Python does the counting."),
+    ("live_any", "Drop in any blueprint, even a century-old scan. One click, and every window, room, stair and "
+                 "fixture is boxed on the page."),
+    ("live_ask", "Ask in English or Finnish. Here, in Finnish: how many sinks and wash basins? Two. Both are boxed, "
+                 "a one-line reason explains the count, and it matches the dataset's answer."),
+    ("live_dxf", "When the CAD file exists, the answer is exact: thirty-six doors, every one numbered on the sheet, "
+                 "zero tokens, in a third of a second."),
+    ("bench_results", "Across the benchmark: one hundred percent on IFC models, and ninety-nine percent on Swiss "
+                      "plans. Every CAD- or BIM-backed answer is free; the rest run on Nemotron's three billion "
+                      "active parameters, with open weights we can self-host in the EU."),
+    (7, "And what won't be obsolete next year: CAD files become free training labels. Our tiny detector already "
+        "finds real doors on Finnish scans it has never seen."),
     (12, "PlanProof. Every number, with the proof drawn on it."),
 ]
+CLIP_FALLBACK = {"bench_problem": 2, "live_any": 6, "live_ask": 6, "live_dxf": 5, "bench_results": 8}
+ENCODE = ["-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p", "-r", "30",
+          "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-ac", "2"]
 
 
 def run(*cmd: str) -> str:
@@ -50,7 +58,7 @@ def run(*cmd: str) -> str:
 
 def build_pdf() -> None:
     run(CHROME, "--headless=new", "--disable-gpu", "--no-pdf-header-footer", "--allow-file-access-from-files",
-        f"--print-to-pdf={DECK_PDF}", (BUILD / "deck.html").as_uri())
+        "--virtual-time-budget=10000", f"--print-to-pdf={DECK_PDF}", (BUILD / "deck.html").as_uri())
     with fitz.open(DECK_PDF) as doc:
         print(f"{DECK_PDF.name}: {doc.page_count} pages, {doc[0].rect.width:.0f}x{doc[0].rect.height:.0f} pt")
 
@@ -71,18 +79,35 @@ def duration(path: Path) -> float:
     return float(info["format"]["duration"])
 
 
-def build_video(voice: str, rate: int) -> None:
+def render_segment(visual, audio: Path, clip: Path, slides: dict[int, Path], slides_only: bool) -> str:
+    speech = duration(audio) + 0.5
+    footage = FOOTAGE / f"{visual}.mp4" if isinstance(visual, str) else None
+    if footage is not None and not slides_only and footage.exists():
+        total = max(speech, duration(footage))
+        run("ffmpeg", "-y", "-i", str(footage), "-i", str(audio), "-filter_complex",
+            f"[0:v]tpad=stop_mode=clone:stop_duration={total:.2f},scale=1920:1080,setsar=1[v];[1:a]apad[a]",
+            "-map", "[v]", "-map", "[a]", "-t", f"{total:.2f}", *ENCODE, str(clip))
+        return f"clip {visual}"
+    if footage is not None and not slides_only:
+        print(f"  {footage.name} missing; using slide {CLIP_FALLBACK[visual]} (run record_app.py)")
+    slide = CLIP_FALLBACK[visual] if isinstance(visual, str) else visual
+    run("ffmpeg", "-y", "-loop", "1", "-t", f"{speech:.2f}", "-i", str(slides[slide]), "-i", str(audio),
+        "-filter_complex", "[0:v]scale=1920:1080,setsar=1[v];[1:a]apad[a]", "-map", "[v]", "-map", "[a]",
+        "-t", f"{speech:.2f}", "-tune", "stillimage", *ENCODE, str(clip))
+    return f"slide {slide}"
+
+
+def build_video(voice: str, rate: int, slides_only: bool) -> None:
     with tempfile.TemporaryDirectory() as name:
         tmp = Path(name)
         slides = rasterize(tmp)
         parts = []
-        for n, (slide, text) in enumerate(SEGMENTS):
+        for n, (visual, text) in enumerate(SEGMENTS):
             audio = tmp / f"seg{n}.aiff"
             run("say", "-v", voice, "-r", str(rate), "-o", str(audio), text)
             clip = tmp / f"seg{n}.mp4"
-            run("ffmpeg", "-y", "-loop", "1", "-i", str(slides[slide]), "-i", str(audio),
-                "-af", "apad=pad_dur=0.5", "-c:v", "libx264", "-tune", "stillimage", "-pix_fmt", "yuv420p",
-                "-r", "30", "-c:a", "aac", "-b:a", "160k", "-ar", "48000", "-shortest", str(clip))
+            used = render_segment(visual, audio, clip, slides, slides_only)
+            print(f"  {n + 1}. {used}: {duration(clip):.1f} s")
             parts.append(clip)
         listing = tmp / "list.txt"
         listing.write_text("".join(f"file '{p}'\n" for p in parts))
@@ -99,10 +124,11 @@ def main() -> None:
     parser.add_argument("--voice", default="Samantha")
     parser.add_argument("--rate", type=int, default=175, help="words per minute for `say`")
     parser.add_argument("--skip-video", action="store_true")
+    parser.add_argument("--slides-only", action="store_true", help="Ignore recorded app footage")
     args = parser.parse_args()
     build_pdf()
     if not args.skip_video:
-        build_video(args.voice, args.rate)
+        build_video(args.voice, args.rate, args.slides_only)
 
 
 if __name__ == "__main__":
