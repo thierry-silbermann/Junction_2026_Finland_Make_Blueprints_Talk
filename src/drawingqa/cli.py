@@ -326,7 +326,7 @@ def serve(args):
     app=create_app(config,args.data_root,runs_dir=args.runs_dir,output=args.output,
                    questions=questions if questions.is_file() else None,default_run=args.run,
                    probe_models=not args.no_probe)
-    print(f"PlanProof demo on http://{args.host}:{args.port}",file=sys.stderr)
+    print(f"PlanSight demo on http://{args.host}:{args.port}",file=sys.stderr)
     uvicorn.run(app,host=args.host,port=args.port,log_level="warning")
 
 

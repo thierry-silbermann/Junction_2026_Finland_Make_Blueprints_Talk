@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>PlanProof – pitch deck</title>
+<title>PlanSight – pitch deck</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Gelasio:wght@400;500;600&family=Hanken+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=block" rel="stylesheet">
@@ -71,7 +71,7 @@
 <section class="slide dark">
   <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
     <div class="kicker">Junction 2026 · Stoa challenge: Make Blueprints Talk</div>
-    <h1>PlanProof</h1>
+    <h1>PlanSight</h1>
     <p style="font-size:54px; margin:24px 0 0; font-weight:300;">Every number from a drawing,<br>with the proof drawn on it.</p>
     <div class="logos">
       <span class="pill n">Powered by NVIDIA Nemotron 3 Nano Omni</span>
@@ -92,7 +92,7 @@
         <li>Questions like <i>"How many doors on this floor?"</i> or <i>"Net area of bedroom 003?"</i> hide in symbols, not text.</li>
         <li>Vision models miscount dense plans, and a bare number is <b>unverifiable</b>.</li>
       </ul>
-      <p class="muted" style="font-size:26px; margin-top:auto;">Right: Nemotron's answer "6 doors" happens to be correct, but its boxes form an invented column. PlanProof's guard flags it as <span class="pill o">needs review</span>.</p>
+      <p class="muted" style="font-size:26px; margin-top:auto;">Right: Nemotron's answer "6 doors" happens to be correct, but its boxes form an invented column. PlanSight's guard flags it as <span class="pill o">needs review</span>.</p>
     </div>
     <div class="col" style="flex:1.35;"><div class="fig shot"><img src="../assets/app_problem.png"></div></div>
   </div>
@@ -103,13 +103,13 @@
 <section class="slide">
   <div class="kicker">The idea</div>
   <h2>Let the blueprint talk in its own language first.</h2>
-  <div class="q">Stoa answers with <b>the document and page behind every sentence</b>.<br>PlanProof adds <b>the symbol behind every number</b>.</div>
+  <div class="q">Stoa answers with <b>the document and page behind every sentence</b>.<br>PlanSight adds <b>the symbol behind every number</b>.</div>
   <div class="row roomy">
     <div class="col"><h3>Most PDFs are exports.</h3><p class="muted">CAD and BIM files sit next to them in M-Files, SharePoint and Dalux. If we have the source, we read it, exactly and for free.</p></div>
     <div class="col"><h3>Scans need vision.</h3><p class="muted">NVIDIA Nemotron Nano Omni returns <i>evidence</i>, not answers: a JSON inventory of boxes that Python validates and counts.</p></div>
-    <div class="col"><h3>Doubt is a feature.</h3><p class="muted">When the evidence looks wrong, PlanProof says <i>needs review</i> and shows its proposal, instead of a confident wrong number.</p></div>
+    <div class="col"><h3>Doubt is a feature.</h3><p class="muted">When the evidence looks wrong, PlanSight says <i>needs review</i> and shows its proposal, instead of a confident wrong number.</p></div>
   </div>
-  <div class="footer"><span>PlanProof</span><span>3</span></div>
+  <div class="footer"><span>PlanSight</span><span>3</span></div>
 </section>
 
 <!-- 4. Architecture -->
@@ -124,7 +124,7 @@
     <div class="box" style="border-color:#d9f99d;"><span class="pill n">3 · Vision</span><h3 style="margin-top:20px;">Nemotron Nano Omni</h3><p>Scans and raster plans</p><p class="muted">Strict JSON evidence (0..1000 boxes), Python counting, de-duplication, invented-pattern guard, abstention</p><p><b>~1k tokens / question</b></p></div>
   </div>
   <div class="row" style="margin-top:40px; flex:none;">
-    <div class="col"><div class="card">Every route returns the same <code>Prediction</code>: answer · status (<i>answered</i> / <i>needs review</i>) · evidence with provenance (<code>dxf_entity</code>, <code>ifc_entity</code>, <code>model_prediction</code>) · justification · tokens and latency. All of it is drawn live in the PlanProof app and exported to a review report.</div></div>
+    <div class="col"><div class="card">Every route returns the same <code>Prediction</code>: answer · status (<i>answered</i> / <i>needs review</i>) · evidence with provenance (<code>dxf_entity</code>, <code>ifc_entity</code>, <code>model_prediction</code>) · justification · tokens and latency. All of it is drawn live in the PlanSight app and exported to a review report.</div></div>
   </div>
   <div class="footer"><span>Questions in English, Finnish, German, French, Italian, Estonian and more</span><span>4</span></div>
 </section>
@@ -217,7 +217,7 @@
     <div class="box"><h3>Creativity</h3><p>The blueprint's own source as ground truth; CAD files as free detector labels; a guard against invented evidence.</p></div>
     <div class="box"><h3>Low inference cost</h3><p>0 tokens for a third of questions; 3B-active Nemotron for the rest; language-shared cache; open weights.</p></div>
   </div>
-  <div class="footer"><span>PlanProof</span><span>10</span></div>
+  <div class="footer"><span>PlanSight</span><span>10</span></div>
 </section>
 
 <!-- 11. Stoa fit and roadmap -->
@@ -229,7 +229,7 @@
       <h3>Fits how Stoa already works</h3>
       <ul>
         <li>Stoa syncs M-Files, SharePoint, Dalux: CAD/BIM sit beside the PDFs.</li>
-        <li>Stoa opens the drawing next to the answer; PlanProof adds the boxes.</li>
+        <li>Stoa opens the drawing next to the answer; PlanSight adds the boxes.</li>
         <li>Self-hosted Nemotron keeps drawings in the EU.</li>
       </ul>
     </div>
@@ -243,13 +243,13 @@
       </ul>
     </div>
   </div>
-  <div class="footer"><span>PlanProof</span><span>11</span></div>
+  <div class="footer"><span>PlanSight</span><span>11</span></div>
 </section>
 
 <!-- 12. Close -->
 <section class="slide dark">
   <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
-    <h1>PlanProof</h1>
+    <h1>PlanSight</h1>
     <p style="font-size:54px; margin:24px 0 50px; font-weight:300;">Every number, with the proof drawn on it.</p>
     <p class="muted" style="font-size:30px;">Code: github.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk<br>Live app: <code>drawingqa serve</code> → Live blueprint + Benchmark tabs · static report in project_submission/demo</p>
     <div class="logos"><span class="pill n">NVIDIA Nemotron 3 Nano Omni</span><span class="pill b">Stoa · Make Blueprints Talk</span></div>

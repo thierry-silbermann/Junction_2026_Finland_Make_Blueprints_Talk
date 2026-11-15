@@ -1,6 +1,6 @@
-# Deploying PlanProof on a Hetzner VPS
+# Deploying PlanSight on a Hetzner VPS
 
-This guide puts the PlanProof app (`drawingqa serve`: the Live blueprint and Benchmark tabs) and the static review report online, on one Hetzner Cloud server with HTTPS and a password.
+This guide puts the PlanSight app (`drawingqa serve`: the Live blueprint and Benchmark tabs) and the static review report online, on one Hetzner Cloud server with HTTPS and a password.
 
 The server does not need a GPU. Inference goes to NVIDIA's hosted Nemotron API, or to your own vLLM server if you rent one (see [Optional: self-hosted Nemotron](#optional-self-hosted-nemotron)). The VPS renders drawings, reads DXF and IFC files, and serves the web app.
 
@@ -24,7 +24,7 @@ In the Hetzner Cloud Console, choose **Add Server**:
 
 Pick **x86, not Arm (CAX)**: `ifcopenshell` and `PyMuPDF` ship ready-made wheels for x86 Linux. The dataset is about 11 GB, so a 40 GB disk is too tight once rendered pages and uploads accumulate.
 
-**Domain.** Point an `A` record (and an `AAAA` record for IPv6) at the server's IP, for example `planproof.example.com`. If you have no domain, `<IP-with-dashes>.sslip.io` works as a real hostname for Let's Encrypt. For example, `65-21-10-4.sslip.io` resolves to `65.21.10.4`.
+**Domain.** Point an `A` record (and an `AAAA` record for IPv6) at the server's IP, for example `plansight.example.com`. If you have no domain, `<IP-with-dashes>.sslip.io` works as a real hostname for Let's Encrypt. For example, `65-21-10-4.sslip.io` resolves to `65.21.10.4`.
 
 ## 2. Prepare the server
 
@@ -38,35 +38,35 @@ apt -y install python3 python3-venv python3-dev git rsync ufw debian-keyring deb
 ufw allow OpenSSH && ufw allow 80/tcp && ufw allow 443/tcp && ufw --force enable
 
 # A dedicated user that owns the app
-adduser --system --group --home /opt/planproof planproof
+adduser --system --group --home /opt/plansight plansight
 ```
 
-Ubuntu 24.04 ships Python 3.12; PlanProof needs 3.11 or newer.
+Ubuntu 24.04 ships Python 3.12; PlanSight needs 3.11 or newer.
 
 ## 3. Get the code
 
 The repository is public on GitHub:
 
 ```bash
-sudo -u planproof git clone https://github.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk.git /opt/planproof/app
+sudo -u plansight git clone https://github.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk.git /opt/plansight/app
 ```
 
 If the repository is not pushed yet, copy the working tree from your laptop instead, from the repo root:
 
 ```bash
 rsync -az --exclude '.venv*' --exclude data --exclude runs --exclude '.git' --exclude '.env' \
-  ./ root@SERVER_IP:/opt/planproof/app/
-ssh root@SERVER_IP chown -R planproof:planproof /opt/planproof/app
+  ./ root@SERVER_IP:/opt/plansight/app/
+ssh root@SERVER_IP chown -R plansight:plansight /opt/plansight/app
 ```
 
 ## 4. Install
 
 ```bash
-cd /opt/planproof/app
-sudo -u planproof python3 -m venv .venv
-sudo -u planproof .venv/bin/pip install --upgrade pip
-sudo -u planproof .venv/bin/pip install -r requirements.txt -r requirements-dxf.txt -r requirements-ifc.txt -r requirements-app.txt
-sudo -u planproof .venv/bin/drawingqa --help     # sanity check
+cd /opt/plansight/app
+sudo -u plansight python3 -m venv .venv
+sudo -u plansight .venv/bin/pip install --upgrade pip
+sudo -u plansight .venv/bin/pip install -r requirements.txt -r requirements-dxf.txt -r requirements-ifc.txt -r requirements-app.txt
+sudo -u plansight .venv/bin/drawingqa --help     # sanity check
 ```
 
 The DXF and IFC extras are what make the zero-token routes work: without them, Swiss and IFC drawings fall back to Nemotron. You don't need the detector environment (`.venv-detector`, PyTorch, Ultralytics) on the server.
@@ -77,16 +77,16 @@ None of these are in git. Copy them from your laptop, from the repo root:
 
 ```bash
 # Drawings + questions (~11 GB; resumable, rerun if interrupted)
-rsync -az --info=progress2 data/ root@SERVER_IP:/opt/planproof/app/data/
+rsync -az --info=progress2 data/ root@SERVER_IP:/opt/plansight/app/data/
 
 # The benchmark run shown in the Benchmark tab (~19 MB)
-rsync -az runs/per-folder-6-v2 root@SERVER_IP:/opt/planproof/app/runs/
+rsync -az runs/per-folder-6-v2 root@SERVER_IP:/opt/plansight/app/runs/
 
 # Optional: the warm caches, so every sample answers instantly without new API calls
-rsync -az .drawingqa/ root@SERVER_IP:/opt/planproof/app/.drawingqa/
-rsync -az runs/live/   root@SERVER_IP:/opt/planproof/app/runs/live/
+rsync -az .drawingqa/ root@SERVER_IP:/opt/plansight/app/.drawingqa/
+rsync -az runs/live/   root@SERVER_IP:/opt/plansight/app/runs/live/
 
-ssh root@SERVER_IP chown -R planproof:planproof /opt/planproof/app
+ssh root@SERVER_IP chown -R plansight:plansight /opt/plansight/app
 ```
 
 To save disk space and upload time, you can copy only the folders the demo uses instead of all of `data/`: `questions.jsonl`, `cubicasa5k`, `swiss_dwellings`, `ifc_models`, `opening_design`, `ifc_bench`, `finna` and `europeana`. Sample tiles for missing folders simply won't appear.
@@ -94,15 +94,15 @@ To save disk space and upload time, you can copy only the folders the demo uses 
 If you skip the cache copy, you can warm it on the server after step 6 (this calls the NVIDIA API once per sample):
 
 ```bash
-cd /opt/planproof/app && sudo -u planproof .venv/bin/python scripts/warm_demo.py --model nemotron_nvidia
+cd /opt/plansight/app && sudo -u plansight .venv/bin/python scripts/warm_demo.py --model nemotron_nvidia
 ```
 
 ## 6. Configure the API key
 
 ```bash
-cd /opt/planproof/app
-sudo -u planproof install -m 600 /dev/null .env
-sudo -u planproof nano .env
+cd /opt/plansight/app
+sudo -u plansight install -m 600 /dev/null .env
+sudo -u plansight nano .env
 ```
 
 ```dotenv
@@ -113,19 +113,19 @@ The app reads `.env` from its working directory, which is why the service below 
 
 ## 7. Run it as a service
 
-Create `/etc/systemd/system/planproof.service`:
+Create `/etc/systemd/system/plansight.service`:
 
 ```ini
 [Unit]
-Description=PlanProof demo app
+Description=PlanSight demo app
 After=network-online.target
 Wants=network-online.target
 
 [Service]
-User=planproof
-Group=planproof
-WorkingDirectory=/opt/planproof/app
-ExecStart=/opt/planproof/app/.venv/bin/drawingqa serve --host 127.0.0.1 --port 8000
+User=plansight
+Group=plansight
+WorkingDirectory=/opt/plansight/app
+ExecStart=/opt/plansight/app/.venv/bin/drawingqa serve --host 127.0.0.1 --port 8000
 Restart=on-failure
 RestartSec=3
 Environment=PYTHONUNBUFFERED=1
@@ -133,17 +133,17 @@ NoNewPrivileges=true
 ProtectSystem=strict
 ProtectHome=true
 PrivateTmp=true
-ReadWritePaths=/opt/planproof/app/runs /opt/planproof/app/.drawingqa
+ReadWritePaths=/opt/plansight/app/runs /opt/plansight/app/.drawingqa
 
 [Install]
 WantedBy=multi-user.target
 ```
 
 ```bash
-mkdir -p /opt/planproof/app/.drawingqa && chown planproof:planproof /opt/planproof/app/.drawingqa
+mkdir -p /opt/plansight/app/.drawingqa && chown plansight:plansight /opt/plansight/app/.drawingqa
 systemctl daemon-reload
-systemctl enable --now planproof
-systemctl status planproof
+systemctl enable --now plansight
+systemctl status plansight
 curl -s http://127.0.0.1:8000/api/models | head -c 300; echo
 ```
 
@@ -164,7 +164,7 @@ caddy hash-password          # type the password you will give the jury; copy th
 Replace `/etc/caddy/Caddyfile` with:
 
 ```caddy
-planproof.example.com {
+plansight.example.com {
 	encode zstd gzip
 
 	basic_auth {
@@ -172,7 +172,7 @@ planproof.example.com {
 	}
 
 	handle_path /report/* {
-		root * /opt/planproof/app/project_submission/demo
+		root * /opt/plansight/app/project_submission/demo
 		file_server
 	}
 
@@ -189,7 +189,7 @@ planproof.example.com {
 systemctl reload caddy
 ```
 
-Then open `https://planproof.example.com/` (the user is `jury`). Caddy obtains and renews the Let's Encrypt certificate by itself; ports 80 and 443 must be open for that. The static review report is at `/report/`, and the Benchmark tab at `/#bench`.
+Then open `https://plansight.example.com/` (the user is `jury`). Caddy obtains and renews the Let's Encrypt certificate by itself; ports 80 and 443 must be open for that. The static review report is at `/report/`, and the Benchmark tab at `/#bench`.
 
 To make the site public instead, delete the `basic_auth` block. In that case, watch your NVIDIA API usage (see [Operating it](#operating-it)).
 
@@ -205,11 +205,11 @@ To make the site public instead, delete the `basic_auth` block. In that case, wa
 
 | Task | Command |
 |---|---|
-| Logs | `journalctl -u planproof -f` and `journalctl -u caddy -f` |
-| Restart after a config or `.env` change | `systemctl restart planproof` |
-| Update the code | `cd /opt/planproof/app && sudo -u planproof git pull && sudo -u planproof .venv/bin/pip install -r requirements-app.txt && systemctl restart planproof` |
-| Disk usage | `du -sh /opt/planproof/app/runs/live /opt/planproof/app/.drawingqa` |
-| Clear uploads | `rm -rf /opt/planproof/app/runs/live/uploads/*` (uploads are stored by content hash; samples are unaffected) |
+| Logs | `journalctl -u plansight -f` and `journalctl -u caddy -f` |
+| Restart after a config or `.env` change | `systemctl restart plansight` |
+| Update the code | `cd /opt/plansight/app && sudo -u plansight git pull && sudo -u plansight .venv/bin/pip install -r requirements-app.txt && systemctl restart plansight` |
+| Disk usage | `du -sh /opt/plansight/app/runs/live /opt/plansight/app/.drawingqa` |
+| Clear uploads | `rm -rf /opt/plansight/app/runs/live/uploads/*` (uploads are stored by content hash; samples are unaffected) |
 | API usage | [build.nvidia.com](https://build.nvidia.com/) → your account; each uncached detection is 4 requests (one per group) |
 
 - **Backups.** Hetzner's *Backups* option (+20% of the server price) snapshots the whole disk daily. Otherwise, take a manual snapshot before the judging.
@@ -229,11 +229,11 @@ Hetzner's own GPU servers (dedicated GEX line) can host vLLM too. Then the tunne
 
 | Symptom | Cause and fix |
 |---|---|
-| Red dot next to the model | Missing or wrong `NVIDIA_API_KEY` in `/opt/planproof/app/.env`, or no outbound HTTPS. Check `journalctl -u planproof`, then restart the service |
+| Red dot next to the model | Missing or wrong `NVIDIA_API_KEY` in `/opt/plansight/app/.env`, or no outbound HTTPS. Check `journalctl -u plansight`, then restart the service |
 | Swiss doors come from Nemotron, not *DXF* | `ezdxf` is missing (rerun step 4) or the `.dxf` files were not copied next to the PDFs |
 | Benchmark tab is empty | `runs/per-folder-6-v2` was not copied (step 5) |
 | Sample tiles missing | That dataset folder is not in `data/` on the server |
-| `502 Bad Gateway` | The app is not running: `systemctl status planproof` |
+| `502 Bad Gateway` | The app is not running: `systemctl status plansight` |
 | Upload fails with 413 | The file is over 50 MB (the app limit) or over the Caddy `max_size` |
-| Permission errors in the logs | Run `chown -R planproof:planproof /opt/planproof/app`; the service may only write to `runs/` and `.drawingqa/` |
+| Permission errors in the logs | Run `chown -R plansight:plansight /opt/plansight/app`; the service may only write to `runs/` and `.drawingqa/` |
 | Certificate not issued | DNS does not point at the server yet, or port 80 is blocked in the Hetzner firewall |

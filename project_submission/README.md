@@ -1,16 +1,16 @@
-# PlanProof: Junction 2026 submission kit
+# PlanSight: Junction 2026 submission kit
 
-Everything needed for the final submission of the Stoa challenge *Make Blueprints Talk*. The project is called **PlanProof** (the Python package is `drawingqa`).
+Everything needed for the final submission of the Stoa challenge *Make Blueprints Talk*. The project is called **PlanSight** (the Python package is `drawingqa`).
 
 | Required item | Where | Status |
 |---|---|---|
 | Project name, punchline, description | [SUBMISSION.md](SUBMISSION.md) | Ready to paste |
 | Challenge | [SUBMISSION.md](SUBMISSION.md#challenge) | Ready |
 | Technologies used | [SUBMISSION.md](SUBMISSION.md#technologies-used) | Ready |
-| 2-minute video pitch | [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md); draft video `PlanProof_pitch_draft.mp4` (1:39): the live app cut between 4 slides | Upload it (or dub your own voice over it); **paste the link** |
+| 2-minute video pitch | [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md); draft video `PlanSight_pitch_draft.mp4` (1:40): the live app cut between 4 slides | Upload it (or dub your own voice over it); **paste the link** |
 | Demo link | `demo/index.html` (static review report, 805 real answers); the live app runs locally with `drawingqa serve` | Push the repo, then use the link below |
 | Source code link | <https://github.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk> | **Commit and push**; make the repo public |
-| Pitch deck (PDF) | `PlanProof_pitch_deck.pdf` (12 slides, 16:9) | Ready to upload |
+| Pitch deck (PDF) | `PlanSight_pitch_deck.pdf` (12 slides, 16:9) | Ready to upload |
 
 ## Before you submit
 

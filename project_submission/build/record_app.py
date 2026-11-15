@@ -1,4 +1,4 @@
-"""Record the PlanProof app for the pitch video: one 1920x1080 clip per scene, plus deck stills.
+"""Record the PlanSight app for the pitch video: one 1920x1080 clip per scene, plus deck stills.
 
 Starts `drawingqa serve`, drives Chrome with Playwright (a drawn cursor shows every click) and
 captures frames with Chrome's screencast. Run `scripts/warm_demo.py` first so answers are cached.

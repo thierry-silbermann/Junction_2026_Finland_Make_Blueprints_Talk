@@ -253,9 +253,9 @@ async function loadModels() {
     MODELS = data.models;
     const select = $('modelSelect');
     select.replaceChildren(...MODELS.map(m => { const o = el('option', null, MODEL_LABELS[m.alias] || m.alias); o.value = m.alias; return o; }));
-    const saved = localStorage.getItem('planproof-model');
+    const saved = localStorage.getItem('plansight-model');
     select.value = MODELS.some(m => m.alias === saved) ? saved : data.default;
-    select.onchange = () => { localStorage.setItem('planproof-model', select.value); updateDot(); };
+    select.onchange = () => { localStorage.setItem('plansight-model', select.value); updateDot(); };
     updateDot();
   } catch (e) { toast('Could not load models: ' + e.message); }
 }

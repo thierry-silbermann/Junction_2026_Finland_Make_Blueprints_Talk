@@ -19,19 +19,19 @@ BUILD = Path(__file__).resolve().parent
 OUT = BUILD.parent
 FOOTAGE = BUILD / "footage"
 CHROME = "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-DECK_PDF = OUT / "PlanProof_pitch_deck.pdf"
-VIDEO = OUT / "PlanProof_pitch_draft.mp4"
+DECK_PDF = OUT / "PlanSight_pitch_deck.pdf"
+VIDEO = OUT / "PlanSight_pitch_draft.mp4"
 MAX_SECONDS = 115
 
 # (visual, narration) in playback order; mirrors VIDEO_SCRIPT.md.
 # An int is a deck slide; a string is an app clip recorded by record_app.py.
 SEGMENTS = [
     (1, "Site engineers lose hours every day hunting through drawings. Stoa answers with the page behind every "
-        "sentence. PlanProof adds the symbol behind every number."),
+        "sentence. PlanSight puts the symbol behind every number in plain sight."),
     ("bench_problem", "Ask a vision model how many doors are on this plan. It says six, and is even right. "
                       "But look at its boxes: a straight column of doors that don't exist. "
-                      "PlanProof holds that answer back for review, instead of guessing."),
-    (4, "So PlanProof routes every question to the most reliable source. When a drawing ships with its CAD or BIM "
+                      "PlanSight holds that answer back for review, instead of guessing."),
+    (4, "So PlanSight routes every question to the most reliable source. When a drawing ships with its CAD or BIM "
         "file, we answer from it directly: zero tokens, deterministic. For scans, NVIDIA Nemotron Nano Omni returns "
         "an inventory of boxes, and Python does the counting."),
     ("live_any", "Drop in any blueprint, even a century-old scan. One click, and every window, room, stair and "
@@ -45,7 +45,7 @@ SEGMENTS = [
                       "active parameters, with open weights we can self-host in the EU."),
     (7, "And what won't be obsolete next year: CAD files become free training labels. Our tiny detector already "
         "finds real doors on Finnish scans it has never seen."),
-    (12, "PlanProof. Every number, with the proof drawn on it."),
+    (12, "PlanSight. Every number, with the proof drawn on it."),
 ]
 CLIP_FALLBACK = {"bench_problem": 2, "live_any": 6, "live_ask": 6, "live_dxf": 5, "bench_results": 8}
 ENCODE = ["-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p", "-r", "30",

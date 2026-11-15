@@ -1,4 +1,4 @@
-"""PlanProof live demo: a two-tab web app over the DrawingQA pipeline.
+"""PlanSight live demo: a two-tab web app over the DrawingQA pipeline.
 
 Live Blueprint runs the pipeline on any uploaded or dataset drawing. Benchmark reads saved
 runs and re-runs single dataset questions. Ground truth is attached after inference only.
@@ -238,7 +238,7 @@ def create_app(config: AppConfig, data_root: Path, *, runs_dir: Path, output: Pa
             folders[relative.parts[0]].append(relative.as_posix())
     default_model = "nemotron_nvidia" if "nemotron_nvidia" in config.models else next(iter(config.models))
 
-    app = FastAPI(title="PlanProof", docs_url="/api/docs", redoc_url=None)
+    app = FastAPI(title="PlanSight", docs_url="/api/docs", redoc_url=None)
 
     def target(path: str | None, upload: str | None) -> tuple[Pipeline, str]:
         if bool(path) == bool(upload):
