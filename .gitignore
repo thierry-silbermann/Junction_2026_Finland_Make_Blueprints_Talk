@@ -1,0 +1,11 @@
+/data
+.env
+.venv*/
+datasets/
+.drawingqa/
+__pycache__/
+*.egg-info/
+.DS_Store
+.ultralytics/
+/runs
+project_submission/PlanProof_pitch_draft.mp4

@@ -1,0 +1,116 @@
+# These aliases use the same extraction schema, images and counting rules.
+# Start only the server(s) you select on the command line.
+models:
+  qwen:
+    model: Qwen/Qwen3-VL-8B-Instruct
+    base_url: http://localhost:8001/v1
+    api_key_env: null
+    timeout_seconds: 180
+    max_retries: 2
+    max_tokens: 8192
+    temperature: 0
+    json_mode: false
+    bbox_scale: 1000
+    extra_body: {}
+    input_cost_per_million: null
+    output_cost_per_million: null
+
+  nemotron:
+    model: nvidia/Nemotron-3-Nano-Omni-30B-A3B-Reasoning-BF16
+    base_url: http://localhost:8002/v1
+    api_key_env: null
+    timeout_seconds: 240
+    max_retries: 2
+    max_tokens: 8192
+    temperature: 0.2
+    json_mode: false
+    bbox_scale: 1000
+    extra_body:
+      top_k: 1
+      chat_template_kwargs:
+        enable_thinking: false
+    input_cost_per_million: null
+    output_cost_per_million: null
+
+  # Optional hosted alternative: NVIDIA's hosted Nano Omni, the same model family
+  # as `nemotron` above, served by NVIDIA (precision/revision not under your control).
+  # Hosted requests transmit the selected drawing image to NVIDIA.
+  nemotron_nvidia:
+    model: nvidia/nemotron-3-nano-omni-30b-a3b-reasoning
+    base_url: https://integrate.api.nvidia.com/v1
+    api_key_env: NVIDIA_API_KEY
+    timeout_seconds: 240
+    max_retries: 2
+    max_tokens: 8192
+    temperature: 0.2
+    json_mode: false
+    bbox_scale: 1000
+    extra_body:
+      top_k: 1
+      chat_template_kwargs:
+        enable_thinking: false
+    input_cost_per_million: null
+    output_cost_per_million: null
+
+  # Rented GPU: the FP8 checkpoint served by vLLM on a Runpod H100, reached through
+  # the SSH tunnel opened by scripts/gpu/runpod_up.sh (localhost only, no API key).
+  # Set gpu_cost_per_hour to the price you rent at; runs report wall time × this rate.
+  nemotron_gpu:
+    model: nemotron-omni
+    base_url: http://localhost:8002/v1
+    api_key_env: null
+    timeout_seconds: 300
+    max_retries: 2
+    max_tokens: 8192
+    temperature: 0.2
+    json_mode: false
+    bbox_scale: 1000
+    extra_body:
+      top_k: 1
+      chat_template_kwargs:
+        enable_thinking: false
+    input_cost_per_million: null
+    output_cost_per_million: null
+    gpu_cost_per_hour: 2.69
+
+pipeline:
+  mode: inventory
+  views: overview
+  max_image_side: 2048
+  tile_size: 1024
+  tile_overlap: 0.15
+  max_views: 24
+  max_pages: 12
+  pdf_dpi: 150
+  max_source_pixels: 80000000
+  dedup_iou: 0.55
+  max_concurrency: 2
+  use_dxf_sibling: true
+  use_ifc_sibling: true
+  # per_question | per_drawing (see profiles below)
+  strategy: per_question
+  # per_drawing inventory requests only
+  inventory_max_tokens: 4096
+  inventory_extra_body:
+    repetition_penalty: 1.1
+  cache_dir: .drawingqa/cache
+
+# Named ways of running, selected with `--profile NAME`. Explicit CLI flags
+# (--models, --strategy, --concurrency, --no-native-routes, ...) override them.
+profiles:
+  normal:
+    description: One vision request per question; canonical count questions share one per category.
+    models: [nemotron_nvidia]
+    pipeline:
+      strategy: per_question
+  reduced:
+    description: One shared inventory request per page answers every recognized question; others fall back to per-question.
+    models: [nemotron_nvidia]
+    pipeline:
+      strategy: per_drawing
+  gpu:
+    description: Reduced-request strategy against your own vLLM server (scripts/gpu/runpod_up.sh), with many requests in flight.
+    models: [nemotron_gpu]
+    pipeline:
+      strategy: per_drawing
+      max_concurrency: 48

@@ -1,0 +1,1473 @@
+{
+  "questions": 805,
+  "labeled_questions": 805,
+  "answered_questions": 525,
+  "answered_labeled_questions": 525,
+  "correct_answers": 446,
+  "answer_coverage": 0.6521739130434783,
+  "exact_accuracy_all_labeled": 0.5540372670807453,
+  "exact_accuracy_answered_only": 0.8495238095238096,
+  "numeric_mae_answered_only": 80.77775048732943,
+  "numeric_mae_samples": 513,
+  "status_counts": {
+    "answered": 525,
+    "needs_review": 37,
+    "unsupported": 243
+  },
+  "proposal_diagnostics": {
+    "eligible_questions": 562,
+    "excluded_error_or_unsupported": 243,
+    "proposed_questions": 553,
+    "proposal_coverage": 0.9839857651245552,
+    "eligible_labeled_questions": 562,
+    "proposed_labeled_questions": 553,
+    "correct_proposals": 451,
+    "exact_accuracy_all_eligible_labeled": 0.802491103202847,
+    "exact_accuracy_proposed_only": 0.8155515370705244,
+    "numeric_mae_proposed_only": 77.3003074074074,
+    "numeric_mae_samples": 540,
+    "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+  },
+  "by_category": {
+    "apartments": {
+      "questions": 12,
+      "labeled_questions": 12,
+      "answered_questions": 12,
+      "answered_labeled_questions": 12,
+      "correct_answers": 12,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 12,
+      "status_counts": {
+        "answered": 12
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 12,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 12,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 12,
+        "proposed_labeled_questions": 12,
+        "correct_proposals": 12,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 12,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "area_apartment": {
+      "questions": 20,
+      "labeled_questions": 20,
+      "answered_questions": 20,
+      "answered_labeled_questions": 20,
+      "correct_answers": 20,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.004999999999999716,
+      "numeric_mae_samples": 20,
+      "status_counts": {
+        "answered": 20
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 20,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 20,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 20,
+        "proposed_labeled_questions": 20,
+        "correct_proposals": 20,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.004999999999999716,
+        "numeric_mae_samples": 20,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "area_named": {
+      "questions": 10,
+      "labeled_questions": 10,
+      "answered_questions": 10,
+      "answered_labeled_questions": 10,
+      "correct_answers": 10,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.003999999999996362,
+      "numeric_mae_samples": 10,
+      "status_counts": {
+        "answered": 10
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 10,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 10,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 10,
+        "proposed_labeled_questions": 10,
+        "correct_proposals": 10,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.003999999999996362,
+        "numeric_mae_samples": 10,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "area_room": {
+      "questions": 24,
+      "labeled_questions": 24,
+      "answered_questions": 24,
+      "answered_labeled_questions": 24,
+      "correct_answers": 24,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.0,
+      "numeric_mae_samples": 24,
+      "status_counts": {
+        "answered": 24
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 24,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 24,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 24,
+        "proposed_labeled_questions": 24,
+        "correct_proposals": 24,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.0,
+        "numeric_mae_samples": 24,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "area_total": {
+      "questions": 12,
+      "labeled_questions": 12,
+      "answered_questions": 10,
+      "answered_labeled_questions": 10,
+      "correct_answers": 10,
+      "answer_coverage": 0.8333333333333334,
+      "exact_accuracy_all_labeled": 0.8333333333333334,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.08400000000000034,
+      "numeric_mae_samples": 10,
+      "status_counts": {
+        "answered": 10,
+        "needs_review": 2
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 12,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 12,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 12,
+        "proposed_labeled_questions": 12,
+        "correct_proposals": 12,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.16833333333332945,
+        "numeric_mae_samples": 12,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "balconies": {
+      "questions": 6,
+      "labeled_questions": 6,
+      "answered_questions": 6,
+      "answered_labeled_questions": 6,
+      "correct_answers": 4,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 0.6666666666666666,
+      "exact_accuracy_answered_only": 0.6666666666666666,
+      "numeric_mae_answered_only": 0.3333333333333333,
+      "numeric_mae_samples": 6,
+      "status_counts": {
+        "answered": 6
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 6,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 6,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 6,
+        "proposed_labeled_questions": 6,
+        "correct_proposals": 4,
+        "exact_accuracy_all_eligible_labeled": 0.6666666666666666,
+        "exact_accuracy_proposed_only": 0.6666666666666666,
+        "numeric_mae_proposed_only": 0.3333333333333333,
+        "numeric_mae_samples": 6,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "bathrooms": {
+      "questions": 4,
+      "labeled_questions": 4,
+      "answered_questions": 4,
+      "answered_labeled_questions": 4,
+      "correct_answers": 2,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 0.5,
+      "exact_accuracy_answered_only": 0.5,
+      "numeric_mae_answered_only": 0.5,
+      "numeric_mae_samples": 4,
+      "status_counts": {
+        "answered": 4
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 4,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 4,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 4,
+        "proposed_labeled_questions": 4,
+        "correct_proposals": 2,
+        "exact_accuracy_all_eligible_labeled": 0.5,
+        "exact_accuracy_proposed_only": 0.5,
+        "numeric_mae_proposed_only": 0.5,
+        "numeric_mae_samples": 4,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "bathtubs": {
+      "questions": 10,
+      "labeled_questions": 10,
+      "answered_questions": 10,
+      "answered_labeled_questions": 10,
+      "correct_answers": 10,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 10,
+      "status_counts": {
+        "answered": 10
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 10,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 10,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 10,
+        "proposed_labeled_questions": 10,
+        "correct_proposals": 10,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 10,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "bedrooms": {
+      "questions": 6,
+      "labeled_questions": 6,
+      "answered_questions": 4,
+      "answered_labeled_questions": 4,
+      "correct_answers": 4,
+      "answer_coverage": 0.6666666666666666,
+      "exact_accuracy_all_labeled": 0.6666666666666666,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 4,
+      "status_counts": {
+        "answered": 4,
+        "needs_review": 2
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 6,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 6,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 6,
+        "proposed_labeled_questions": 6,
+        "correct_proposals": 4,
+        "exact_accuracy_all_eligible_labeled": 0.6666666666666666,
+        "exact_accuracy_proposed_only": 0.6666666666666666,
+        "numeric_mae_proposed_only": 0.3333333333333333,
+        "numeric_mae_samples": 6,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "columns": {
+      "questions": 2,
+      "labeled_questions": 2,
+      "answered_questions": 2,
+      "answered_labeled_questions": 2,
+      "correct_answers": 2,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 2,
+      "status_counts": {
+        "answered": 2
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 2,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 2,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 2,
+        "proposed_labeled_questions": 2,
+        "correct_proposals": 2,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 2,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "doors": {
+      "questions": 20,
+      "labeled_questions": 20,
+      "answered_questions": 16,
+      "answered_labeled_questions": 16,
+      "correct_answers": 14,
+      "answer_coverage": 0.8,
+      "exact_accuracy_all_labeled": 0.7,
+      "exact_accuracy_answered_only": 0.875,
+      "numeric_mae_answered_only": 0.125,
+      "numeric_mae_samples": 16,
+      "status_counts": {
+        "answered": 16,
+        "needs_review": 4
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 20,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 20,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 20,
+        "proposed_labeled_questions": 20,
+        "correct_proposals": 16,
+        "exact_accuracy_all_eligible_labeled": 0.8,
+        "exact_accuracy_proposed_only": 0.8,
+        "numeric_mae_proposed_only": 0.3,
+        "numeric_mae_samples": 20,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "floors": {
+      "questions": 12,
+      "labeled_questions": 12,
+      "answered_questions": 10,
+      "answered_labeled_questions": 10,
+      "correct_answers": 10,
+      "answer_coverage": 0.8333333333333334,
+      "exact_accuracy_all_labeled": 0.8333333333333334,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 10,
+      "status_counts": {
+        "answered": 10,
+        "needs_review": 2
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 12,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 12,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 12,
+        "proposed_labeled_questions": 12,
+        "correct_proposals": 10,
+        "exact_accuracy_all_eligible_labeled": 0.8333333333333334,
+        "exact_accuracy_proposed_only": 0.8333333333333334,
+        "numeric_mae_proposed_only": 0.6666666666666666,
+        "numeric_mae_samples": 12,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "general": {
+      "questions": 307,
+      "labeled_questions": 307,
+      "answered_questions": 51,
+      "answered_labeled_questions": 51,
+      "correct_answers": 8,
+      "answer_coverage": 0.16612377850162866,
+      "exact_accuracy_all_labeled": 0.026058631921824105,
+      "exact_accuracy_answered_only": 0.1568627450980392,
+      "numeric_mae_answered_only": 1061.3846153846155,
+      "numeric_mae_samples": 39,
+      "status_counts": {
+        "answered": 51,
+        "needs_review": 13,
+        "unsupported": 243
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 64,
+        "excluded_error_or_unsupported": 243,
+        "proposed_questions": 55,
+        "proposal_coverage": 0.859375,
+        "eligible_labeled_questions": 64,
+        "proposed_labeled_questions": 55,
+        "correct_proposals": 9,
+        "exact_accuracy_all_eligible_labeled": 0.140625,
+        "exact_accuracy_proposed_only": 0.16363636363636364,
+        "numeric_mae_proposed_only": 991,
+        "numeric_mae_samples": 42,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "kitchens": {
+      "questions": 8,
+      "labeled_questions": 8,
+      "answered_questions": 8,
+      "answered_labeled_questions": 8,
+      "correct_answers": 2,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 0.25,
+      "exact_accuracy_answered_only": 0.25,
+      "numeric_mae_answered_only": 1,
+      "numeric_mae_samples": 8,
+      "status_counts": {
+        "answered": 8
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 8,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 8,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 8,
+        "proposed_labeled_questions": 8,
+        "correct_proposals": 2,
+        "exact_accuracy_all_eligible_labeled": 0.25,
+        "exact_accuracy_proposed_only": 0.25,
+        "numeric_mae_proposed_only": 1,
+        "numeric_mae_samples": 8,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "model_beams": {
+      "questions": 6,
+      "labeled_questions": 6,
+      "answered_questions": 6,
+      "answered_labeled_questions": 6,
+      "correct_answers": 6,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 6,
+      "status_counts": {
+        "answered": 6
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 6,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 6,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 6,
+        "proposed_labeled_questions": 6,
+        "correct_proposals": 6,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 6,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "model_columns": {
+      "questions": 6,
+      "labeled_questions": 6,
+      "answered_questions": 6,
+      "answered_labeled_questions": 6,
+      "correct_answers": 6,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 6,
+      "status_counts": {
+        "answered": 6
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 6,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 6,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 6,
+        "proposed_labeled_questions": 6,
+        "correct_proposals": 6,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 6,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "model_doors": {
+      "questions": 6,
+      "labeled_questions": 6,
+      "answered_questions": 6,
+      "answered_labeled_questions": 6,
+      "correct_answers": 6,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 6,
+      "status_counts": {
+        "answered": 6
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 6,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 6,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 6,
+        "proposed_labeled_questions": 6,
+        "correct_proposals": 6,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 6,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "model_rooms": {
+      "questions": 6,
+      "labeled_questions": 6,
+      "answered_questions": 6,
+      "answered_labeled_questions": 6,
+      "correct_answers": 6,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 6,
+      "status_counts": {
+        "answered": 6
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 6,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 6,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 6,
+        "proposed_labeled_questions": 6,
+        "correct_proposals": 6,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 6,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "model_sanitary": {
+      "questions": 4,
+      "labeled_questions": 4,
+      "answered_questions": 4,
+      "answered_labeled_questions": 4,
+      "correct_answers": 4,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 4,
+      "status_counts": {
+        "answered": 4
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 4,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 4,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 4,
+        "proposed_labeled_questions": 4,
+        "correct_proposals": 4,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 4,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "model_stairs": {
+      "questions": 6,
+      "labeled_questions": 6,
+      "answered_questions": 6,
+      "answered_labeled_questions": 6,
+      "correct_answers": 6,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 6,
+      "status_counts": {
+        "answered": 6
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 6,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 6,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 6,
+        "proposed_labeled_questions": 6,
+        "correct_proposals": 6,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 6,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "model_walls": {
+      "questions": 6,
+      "labeled_questions": 6,
+      "answered_questions": 6,
+      "answered_labeled_questions": 6,
+      "correct_answers": 6,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 6,
+      "status_counts": {
+        "answered": 6
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 6,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 6,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 6,
+        "proposed_labeled_questions": 6,
+        "correct_proposals": 6,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 6,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "model_windows": {
+      "questions": 6,
+      "labeled_questions": 6,
+      "answered_questions": 6,
+      "answered_labeled_questions": 6,
+      "correct_answers": 6,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 6,
+      "status_counts": {
+        "answered": 6
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 6,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 6,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 6,
+        "proposed_labeled_questions": 6,
+        "correct_proposals": 6,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 6,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "room_area": {
+      "questions": 112,
+      "labeled_questions": 112,
+      "answered_questions": 112,
+      "answered_labeled_questions": 112,
+      "correct_answers": 112,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.0,
+      "numeric_mae_samples": 112,
+      "status_counts": {
+        "answered": 112
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 112,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 112,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 112,
+        "proposed_labeled_questions": 112,
+        "correct_proposals": 112,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.0,
+        "numeric_mae_samples": 112,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "rooms": {
+      "questions": 4,
+      "labeled_questions": 4,
+      "answered_questions": 4,
+      "answered_labeled_questions": 4,
+      "correct_answers": 4,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 4,
+      "status_counts": {
+        "answered": 4
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 4,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 4,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 4,
+        "proposed_labeled_questions": 4,
+        "correct_proposals": 4,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 4,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "rooms_named": {
+      "questions": 74,
+      "labeled_questions": 74,
+      "answered_questions": 74,
+      "answered_labeled_questions": 74,
+      "correct_answers": 74,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 74,
+      "status_counts": {
+        "answered": 74
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 74,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 74,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 74,
+        "proposed_labeled_questions": 74,
+        "correct_proposals": 74,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 74,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "saunas": {
+      "questions": 8,
+      "labeled_questions": 8,
+      "answered_questions": 8,
+      "answered_labeled_questions": 8,
+      "correct_answers": 6,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 0.75,
+      "exact_accuracy_answered_only": 0.75,
+      "numeric_mae_answered_only": 0.25,
+      "numeric_mae_samples": 8,
+      "status_counts": {
+        "answered": 8
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 8,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 8,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 8,
+        "proposed_labeled_questions": 8,
+        "correct_proposals": 6,
+        "exact_accuracy_all_eligible_labeled": 0.75,
+        "exact_accuracy_proposed_only": 0.75,
+        "numeric_mae_proposed_only": 0.25,
+        "numeric_mae_samples": 8,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "showers": {
+      "questions": 4,
+      "labeled_questions": 4,
+      "answered_questions": 4,
+      "answered_labeled_questions": 4,
+      "correct_answers": 4,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 4,
+      "status_counts": {
+        "answered": 4
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 4,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 4,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 4,
+        "proposed_labeled_questions": 4,
+        "correct_proposals": 4,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 4,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "showers_bathtubs": {
+      "questions": 12,
+      "labeled_questions": 12,
+      "answered_questions": 8,
+      "answered_labeled_questions": 8,
+      "correct_answers": 0,
+      "answer_coverage": 0.6666666666666666,
+      "exact_accuracy_all_labeled": 0.0,
+      "exact_accuracy_answered_only": 0.0,
+      "numeric_mae_answered_only": 1.25,
+      "numeric_mae_samples": 8,
+      "status_counts": {
+        "answered": 8,
+        "needs_review": 4
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 12,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 12,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 12,
+        "proposed_labeled_questions": 12,
+        "correct_proposals": 0,
+        "exact_accuracy_all_eligible_labeled": 0.0,
+        "exact_accuracy_proposed_only": 0.0,
+        "numeric_mae_proposed_only": 1.1666666666666667,
+        "numeric_mae_samples": 12,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "sinks": {
+      "questions": 12,
+      "labeled_questions": 12,
+      "answered_questions": 12,
+      "answered_labeled_questions": 12,
+      "correct_answers": 10,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 0.8333333333333334,
+      "exact_accuracy_answered_only": 0.8333333333333334,
+      "numeric_mae_answered_only": 0.16666666666666666,
+      "numeric_mae_samples": 12,
+      "status_counts": {
+        "answered": 12
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 12,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 12,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 12,
+        "proposed_labeled_questions": 12,
+        "correct_proposals": 10,
+        "exact_accuracy_all_eligible_labeled": 0.8333333333333334,
+        "exact_accuracy_proposed_only": 0.8333333333333334,
+        "numeric_mae_proposed_only": 0.16666666666666666,
+        "numeric_mae_samples": 12,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "slabs_NetVolume": {
+      "questions": 6,
+      "labeled_questions": 6,
+      "answered_questions": 6,
+      "answered_labeled_questions": 6,
+      "correct_answers": 6,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.0,
+      "numeric_mae_samples": 6,
+      "status_counts": {
+        "answered": 6
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 6,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 6,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 6,
+        "proposed_labeled_questions": 6,
+        "correct_proposals": 6,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.0,
+        "numeric_mae_samples": 6,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "storey_area": {
+      "questions": 2,
+      "labeled_questions": 2,
+      "answered_questions": 2,
+      "answered_labeled_questions": 2,
+      "correct_answers": 2,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.002999999999985903,
+      "numeric_mae_samples": 2,
+      "status_counts": {
+        "answered": 2
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 2,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 2,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 2,
+        "proposed_labeled_questions": 2,
+        "correct_proposals": 2,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.002999999999985903,
+        "numeric_mae_samples": 2,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "toilets": {
+      "questions": 24,
+      "labeled_questions": 24,
+      "answered_questions": 24,
+      "answered_labeled_questions": 24,
+      "correct_answers": 18,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 0.75,
+      "exact_accuracy_answered_only": 0.75,
+      "numeric_mae_answered_only": 0.25,
+      "numeric_mae_samples": 24,
+      "status_counts": {
+        "answered": 24
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 24,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 24,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 24,
+        "proposed_labeled_questions": 24,
+        "correct_proposals": 18,
+        "exact_accuracy_all_eligible_labeled": 0.75,
+        "exact_accuracy_proposed_only": 0.75,
+        "numeric_mae_proposed_only": 0.25,
+        "numeric_mae_samples": 24,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "walls": {
+      "questions": 2,
+      "labeled_questions": 2,
+      "answered_questions": 2,
+      "answered_labeled_questions": 2,
+      "correct_answers": 2,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 2,
+      "status_counts": {
+        "answered": 2
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 2,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 2,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 2,
+        "proposed_labeled_questions": 2,
+        "correct_proposals": 2,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 2,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "walls_Length": {
+      "questions": 2,
+      "labeled_questions": 2,
+      "answered_questions": 2,
+      "answered_labeled_questions": 2,
+      "correct_answers": 2,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.0,
+      "numeric_mae_samples": 2,
+      "status_counts": {
+        "answered": 2
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 2,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 2,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 2,
+        "proposed_labeled_questions": 2,
+        "correct_proposals": 2,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.0,
+        "numeric_mae_samples": 2,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "walls_NetSideArea": {
+      "questions": 2,
+      "labeled_questions": 2,
+      "answered_questions": 2,
+      "answered_labeled_questions": 2,
+      "correct_answers": 2,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.0,
+      "numeric_mae_samples": 2,
+      "status_counts": {
+        "answered": 2
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 2,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 2,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 2,
+        "proposed_labeled_questions": 2,
+        "correct_proposals": 2,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.0,
+        "numeric_mae_samples": 2,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "walls_NetVolume": {
+      "questions": 2,
+      "labeled_questions": 2,
+      "answered_questions": 2,
+      "answered_labeled_questions": 2,
+      "correct_answers": 2,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.0,
+      "numeric_mae_samples": 2,
+      "status_counts": {
+        "answered": 2
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 2,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 2,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 2,
+        "proposed_labeled_questions": 2,
+        "correct_proposals": 2,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.0,
+        "numeric_mae_samples": 2,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "washbasins": {
+      "questions": 12,
+      "labeled_questions": 12,
+      "answered_questions": 12,
+      "answered_labeled_questions": 12,
+      "correct_answers": 12,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0,
+      "numeric_mae_samples": 12,
+      "status_counts": {
+        "answered": 12
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 12,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 12,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 12,
+        "proposed_labeled_questions": 12,
+        "correct_proposals": 12,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0,
+        "numeric_mae_samples": 12,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "wc_rooms": {
+      "questions": 4,
+      "labeled_questions": 4,
+      "answered_questions": 4,
+      "answered_labeled_questions": 4,
+      "correct_answers": 0,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 0.0,
+      "exact_accuracy_answered_only": 0.0,
+      "numeric_mae_answered_only": 1,
+      "numeric_mae_samples": 4,
+      "status_counts": {
+        "answered": 4
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 4,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 4,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 4,
+        "proposed_labeled_questions": 4,
+        "correct_proposals": 0,
+        "exact_accuracy_all_eligible_labeled": 0.0,
+        "exact_accuracy_proposed_only": 0.0,
+        "numeric_mae_proposed_only": 1,
+        "numeric_mae_samples": 4,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "windows": {
+      "questions": 24,
+      "labeled_questions": 24,
+      "answered_questions": 14,
+      "answered_labeled_questions": 14,
+      "correct_answers": 12,
+      "answer_coverage": 0.5833333333333334,
+      "exact_accuracy_all_labeled": 0.5,
+      "exact_accuracy_answered_only": 0.8571428571428571,
+      "numeric_mae_answered_only": 0.42857142857142855,
+      "numeric_mae_samples": 14,
+      "status_counts": {
+        "answered": 14,
+        "needs_review": 10
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 24,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 24,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 24,
+        "proposed_labeled_questions": 24,
+        "correct_proposals": 12,
+        "exact_accuracy_all_eligible_labeled": 0.5,
+        "exact_accuracy_proposed_only": 0.5,
+        "numeric_mae_proposed_only": 2.5833333333333335,
+        "numeric_mae_samples": 24,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    }
+  },
+  "by_source": {
+    "cubicasa5k": {
+      "questions": 102,
+      "labeled_questions": 102,
+      "answered_questions": 80,
+      "answered_labeled_questions": 80,
+      "correct_answers": 44,
+      "answer_coverage": 0.7843137254901961,
+      "exact_accuracy_all_labeled": 0.43137254901960786,
+      "exact_accuracy_answered_only": 0.55,
+      "numeric_mae_answered_only": 0.55,
+      "numeric_mae_samples": 80,
+      "status_counts": {
+        "answered": 80,
+        "needs_review": 22
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 102,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 102,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 102,
+        "proposed_labeled_questions": 102,
+        "correct_proposals": 46,
+        "exact_accuracy_all_eligible_labeled": 0.45098039215686275,
+        "exact_accuracy_proposed_only": 0.45098039215686275,
+        "numeric_mae_proposed_only": 1.1568627450980393,
+        "numeric_mae_samples": 102,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "ifc_bench": {
+      "questions": 243,
+      "labeled_questions": 243,
+      "answered_questions": 0,
+      "answered_labeled_questions": 0,
+      "correct_answers": 0,
+      "answer_coverage": 0.0,
+      "exact_accuracy_all_labeled": 0.0,
+      "exact_accuracy_answered_only": null,
+      "numeric_mae_answered_only": null,
+      "numeric_mae_samples": 0,
+      "status_counts": {
+        "unsupported": 243
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 0,
+        "excluded_error_or_unsupported": 243,
+        "proposed_questions": 0,
+        "proposal_coverage": null,
+        "eligible_labeled_questions": 0,
+        "proposed_labeled_questions": 0,
+        "correct_proposals": 0,
+        "exact_accuracy_all_eligible_labeled": null,
+        "exact_accuracy_proposed_only": null,
+        "numeric_mae_proposed_only": null,
+        "numeric_mae_samples": 0,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "ifc_models": {
+      "questions": 182,
+      "labeled_questions": 182,
+      "answered_questions": 182,
+      "answered_labeled_questions": 182,
+      "correct_answers": 182,
+      "answer_coverage": 1.0,
+      "exact_accuracy_all_labeled": 1.0,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 3.296703296687805e-05,
+      "numeric_mae_samples": 182,
+      "status_counts": {
+        "answered": 182
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 182,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 182,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 182,
+        "proposed_labeled_questions": 182,
+        "correct_proposals": 182,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 3.296703296687805e-05,
+        "numeric_mae_samples": 182,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "opening_design": {
+      "questions": 64,
+      "labeled_questions": 64,
+      "answered_questions": 51,
+      "answered_labeled_questions": 51,
+      "correct_answers": 8,
+      "answer_coverage": 0.796875,
+      "exact_accuracy_all_labeled": 0.125,
+      "exact_accuracy_answered_only": 0.1568627450980392,
+      "numeric_mae_answered_only": 1061.3846153846155,
+      "numeric_mae_samples": 39,
+      "status_counts": {
+        "answered": 51,
+        "needs_review": 13
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 64,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 55,
+        "proposal_coverage": 0.859375,
+        "eligible_labeled_questions": 64,
+        "proposed_labeled_questions": 55,
+        "correct_proposals": 9,
+        "exact_accuracy_all_eligible_labeled": 0.140625,
+        "exact_accuracy_proposed_only": 0.16363636363636364,
+        "numeric_mae_proposed_only": 991,
+        "numeric_mae_samples": 42,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    },
+    "swiss_dwellings": {
+      "questions": 214,
+      "labeled_questions": 214,
+      "answered_questions": 212,
+      "answered_labeled_questions": 212,
+      "correct_answers": 212,
+      "answer_coverage": 0.9906542056074766,
+      "exact_accuracy_all_labeled": 0.9906542056074766,
+      "exact_accuracy_answered_only": 1.0,
+      "numeric_mae_answered_only": 0.00462264150943378,
+      "numeric_mae_samples": 212,
+      "status_counts": {
+        "answered": 212,
+        "needs_review": 2
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 214,
+        "excluded_error_or_unsupported": 0,
+        "proposed_questions": 214,
+        "proposal_coverage": 1.0,
+        "eligible_labeled_questions": 214,
+        "proposed_labeled_questions": 214,
+        "correct_proposals": 214,
+        "exact_accuracy_all_eligible_labeled": 1.0,
+        "exact_accuracy_proposed_only": 1.0,
+        "numeric_mae_proposed_only": 0.010093457943924819,
+        "numeric_mae_samples": 214,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      }
+    }
+  },
+  "by_model": {
+    "nemotron_nvidia": {
+      "questions": 805,
+      "labeled_questions": 805,
+      "answered_questions": 525,
+      "answered_labeled_questions": 525,
+      "correct_answers": 446,
+      "answer_coverage": 0.6521739130434783,
+      "exact_accuracy_all_labeled": 0.5540372670807453,
+      "exact_accuracy_answered_only": 0.8495238095238096,
+      "numeric_mae_answered_only": 80.77775048732943,
+      "numeric_mae_samples": 513,
+      "status_counts": {
+        "answered": 525,
+        "needs_review": 37,
+        "unsupported": 243
+      },
+      "proposal_diagnostics": {
+        "eligible_questions": 562,
+        "excluded_error_or_unsupported": 243,
+        "proposed_questions": 553,
+        "proposal_coverage": 0.9839857651245552,
+        "eligible_labeled_questions": 562,
+        "proposed_labeled_questions": 553,
+        "correct_proposals": 451,
+        "exact_accuracy_all_eligible_labeled": 0.802491103202847,
+        "exact_accuracy_proposed_only": 0.8155515370705244,
+        "numeric_mae_proposed_only": 77.3003074074074,
+        "numeric_mae_samples": 540,
+        "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+      },
+      "usage": {
+        "requests": 0,
+        "retries": 0,
+        "cached_requests": 166,
+        "reported_input_tokens": 0,
+        "reported_output_tokens": 0,
+        "usage_complete": true,
+        "estimated_cost_usd": 0.0,
+        "known_cost_subtotal_usd": 0.0,
+        "cost_complete": true,
+        "latency_mean_seconds": 0.01835030197738583,
+        "latency_p50_seconds": 9.624753147363663e-06,
+        "latency_p95_seconds": 0.013864090945571651,
+        "latency_sum_seconds": 14.771993091795594,
+        "latency_note": "Per-question sum of provider API elapsed time including retry waits. Excludes image preprocessing, report generation and other local work; not concurrent batch wall time. Cache hits contribute zero API seconds."
+      }
+    }
+  },
+  "count_zero": {
+    "questions": 14,
+    "labeled_questions": 14,
+    "answered_questions": 14,
+    "answered_labeled_questions": 14,
+    "correct_answers": 10,
+    "answer_coverage": 1.0,
+    "exact_accuracy_all_labeled": 0.7142857142857143,
+    "exact_accuracy_answered_only": 0.7142857142857143,
+    "numeric_mae_answered_only": 0.5714285714285714,
+    "numeric_mae_samples": 14,
+    "status_counts": {
+      "answered": 14
+    },
+    "proposal_diagnostics": {
+      "eligible_questions": 14,
+      "excluded_error_or_unsupported": 0,
+      "proposed_questions": 14,
+      "proposal_coverage": 1.0,
+      "eligible_labeled_questions": 14,
+      "proposed_labeled_questions": 14,
+      "correct_proposals": 10,
+      "exact_accuracy_all_eligible_labeled": 0.7142857142857143,
+      "exact_accuracy_proposed_only": 0.7142857142857143,
+      "numeric_mae_proposed_only": 0.5714285714285714,
+      "numeric_mae_samples": 14,
+      "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+    }
+  },
+  "count_nonzero": {
+    "questions": 331,
+    "labeled_questions": 331,
+    "answered_questions": 306,
+    "answered_labeled_questions": 306,
+    "correct_answers": 246,
+    "answer_coverage": 0.9244712990936556,
+    "exact_accuracy_all_labeled": 0.743202416918429,
+    "exact_accuracy_answered_only": 0.803921568627451,
+    "numeric_mae_answered_only": 6.444444444444445,
+    "numeric_mae_samples": 306,
+    "status_counts": {
+      "answered": 306,
+      "needs_review": 25
+    },
+    "proposal_diagnostics": {
+      "eligible_questions": 331,
+      "excluded_error_or_unsupported": 0,
+      "proposed_questions": 331,
+      "proposal_coverage": 1.0,
+      "eligible_labeled_questions": 331,
+      "proposed_labeled_questions": 331,
+      "correct_proposals": 249,
+      "exact_accuracy_all_eligible_labeled": 0.7522658610271903,
+      "exact_accuracy_proposed_only": 0.7522658610271903,
+      "numeric_mae_proposed_only": 6.8700906344410875,
+      "numeric_mae_samples": 331,
+      "note": "Diagnostic proposed values only, not accepted final answers. Error/unsupported rows are excluded; missing proposals remain in the all-eligible-labeled denominator. Read proposal accuracy with proposal coverage and final-answer accuracy."
+    }
+  },
+  "usage": {
+    "requests": 0,
+    "retries": 0,
+    "cached_requests": 166,
+    "reported_input_tokens": 0,
+    "reported_output_tokens": 0,
+    "usage_complete": true,
+    "estimated_cost_usd": 0.0,
+    "known_cost_subtotal_usd": 0.0,
+    "cost_complete": true,
+    "latency_mean_seconds": 0.01835030197738583,
+    "latency_p50_seconds": 9.624753147363663e-06,
+    "latency_p95_seconds": 0.013864090945571651,
+    "latency_sum_seconds": 14.771993091795594,
+    "latency_note": "Per-question sum of provider API elapsed time including retry waits. Excludes image preprocessing, report generation and other local work; not concurrent batch wall time. Cache hits contribute zero API seconds."
+  },
+  "evidence": {
+    "answered_with_evidence": 511,
+    "answered_with_evidence_fraction": 0.9733333333333334,
+    "human_verified_entities": 0,
+    "localization_accuracy": null,
+    "note": "Evidence presence is not localization correctness. Zero counts may legitimately have no object boxes. Human review or annotated boxes are required to score evidence accuracy."
+  },
+  "unique_facts": {
+    "facts": 621,
+    "labeled_facts": 615,
+    "correct_in_all_labeled_wordings": 285,
+    "exact_accuracy_all_wordings": 0.4634146341463415,
+    "conflicting_ground_truth_groups": 6,
+    "repeated_wording_groups": 122,
+    "answered_consistently_groups": 105,
+    "wording_consistency": 0.860655737704918,
+    "note": "Canonical count intents are grouped by model, image content/path, requested page, category and configuration. This includes bilingual pairs; agreement is not correctness and may result from shared cached extraction."
+  },
+  "metric_notes": [
+    "Abstentions, errors and unsupported cases remain in the all-labeled accuracy denominator.",
+    "No semantic judge is used: text answers match after trimming outer whitespace; counts match exactly; areas, lengths and volumes match within 2%; booleans remain distinct from numbers.",
+    "MAE covers only answered numeric targets and must be interpreted with coverage.",
+    "Model-proposed answers for needs_review are not scored as final answers; proposal_diagnostics separately measures proposed values and excludes errors/unsupported cases.",
+    "Missing pricing or unreported usage is unknown, not free. Provider retries can add unreported charges."
+  ],
+  "run_wall_seconds": 41.89837008295581,
+  "resumed": false
+}

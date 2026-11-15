@@ -1,0 +1,2 @@
+# Install after requirements.txt, only when answering PDFs that have a same-named semantic DXF.
+ezdxf>=1.3,<2

@@ -1,0 +1,248 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>PlanProof – pitch deck</title>
+<style>
+  @page { size: 1920px 1080px; margin: 0; }
+  :root { --ink:#0f172a; --muted:#475569; --line:#e2e8f0; --nv:#76b900; --green:#16a34a; --orange:#ea580c; --blue:#2563eb; --paper:#f8fafc; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; color: var(--ink); -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .slide { width: 1920px; height: 1080px; padding: 90px 110px; position: relative; overflow: hidden; page-break-after: always; break-after: page; background: white; display: flex; flex-direction: column; }
+  .slide:last-child { page-break-after: auto; break-after: auto; }
+  .dark { background: var(--ink); color: white; }
+  .dark .muted { color: #cbd5e1; }
+  h1 { font-size: 120px; margin: 0; letter-spacing: -3px; }
+  h2 { font-size: 64px; margin: 0 0 40px; letter-spacing: -1.5px; line-height: 1.08; }
+  h3 { font-size: 34px; margin: 0 0 14px; }
+  p, li { font-size: 32px; line-height: 1.4; }
+  .muted { color: var(--muted); }
+  .kicker { font-size: 24px; letter-spacing: 3px; text-transform: uppercase; color: var(--nv); font-weight: 700; margin-bottom: 18px; }
+  .footer { position: absolute; bottom: 36px; left: 110px; right: 110px; display: flex; justify-content: space-between; font-size: 20px; color: #94a3b8; }
+  .row { display: flex; gap: 60px; flex: 1; min-height: 0; }
+  .col { flex: 1; min-width: 0; display: flex; flex-direction: column; }
+  .fig { flex: 1; min-height: 0; display: flex; align-items: center; justify-content: center; background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: 18px; }
+  .fig img { max-width: 100%; max-height: 100%; object-fit: contain; }
+  .cap { font-size: 24px; color: var(--muted); margin-top: 14px; line-height: 1.35; }
+  .big { font-size: 140px; font-weight: 800; letter-spacing: -4px; line-height: 1; }
+  .stat { flex: 1; border-top: 8px solid var(--nv); padding-top: 24px; }
+  .stat .big { font-size: 110px; }
+  .stat p { font-size: 28px; margin: 14px 0 0; }
+  .pill { display: inline-block; padding: 8px 20px; border-radius: 999px; font-size: 24px; font-weight: 700; margin-right: 10px; }
+  .g { background: #dcfce7; color: #166534; } .o { background: #ffedd5; color: #9a3412; } .b { background: #dbeafe; color: #1e40af; } .n { background: #ecfccb; color: #3f6212; }
+  table { border-collapse: collapse; width: 100%; font-size: 30px; }
+  th, td { text-align: left; padding: 18px 20px; border-bottom: 2px solid var(--line); }
+  th { font-size: 22px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--muted); }
+  td.num { font-weight: 800; font-size: 38px; }
+  .route { display: flex; gap: 30px; align-items: stretch; margin-top: 10px; }
+  .box { flex: 1; border: 3px solid var(--line); border-radius: 20px; padding: 30px; background: white; }
+  .box h3 { font-size: 42px; }
+  .box p { font-size: 30px; margin: 12px 0; }
+  .arrow { font-size: 60px; color: #94a3b8; align-self: center; }
+  .q { background: var(--paper); border-left: 10px solid var(--nv); padding: 26px 34px; font-size: 34px; border-radius: 0 16px 16px 0; margin: 0 0 40px; }
+  .card { background: var(--paper); border: 2px solid var(--line); border-radius: 18px; padding: 28px 32px; font-size: 25px; line-height: 1.5; }
+  .card code { font-size: 23px; background: #e2e8f0; padding: 2px 8px; border-radius: 6px; }
+  ul { margin: 0; padding-left: 36px; } li { margin-bottom: 14px; }
+  .crit { display: grid; grid-template-columns: 1fr 1fr; gap: 36px; flex: 1; }
+  .crit .box { border-top: 10px solid var(--nv); }
+  .crit .box h3 { font-size: 48px; }
+  .crit .box p { font-size: 34px; }
+  .roomy p, .roomy li { font-size: 38px; }
+  .roomy h3 { font-size: 44px; margin-bottom: 26px; }
+  .logos { display: flex; gap: 22px; margin-top: 50px; }
+</style>
+</head>
+<body>
+
+<!-- 1. Title -->
+<section class="slide dark">
+  <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+    <div class="kicker">Junction 2026 · Stoa challenge: Make Blueprints Talk</div>
+    <h1>PlanProof</h1>
+    <p style="font-size:54px; margin:24px 0 0; font-weight:300;">Every number from a drawing,<br>with the proof drawn on it.</p>
+    <div class="logos">
+      <span class="pill n">Powered by NVIDIA Nemotron 3 Nano Omni</span>
+      <span class="pill b">Built for Stoa</span>
+    </div>
+  </div>
+  <div class="footer"><span>github.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk</span><span>1</span></div>
+</section>
+
+<!-- 2. Problem -->
+<section class="slide">
+  <div class="kicker">The problem</div>
+  <h2>Engineers lose hours in drawings. Generic AI gives numbers nobody can check.</h2>
+  <div class="row">
+    <div class="col" style="flex:1.1;">
+      <ul>
+        <li>Stoa measured <b>a week back per project engineer</b>, mostly time spent finding where something was written down.</li>
+        <li>Questions like <i>"How many doors on this floor?"</i> or <i>"Net area of bedroom 003?"</i> hide in symbols, not text.</li>
+        <li>Vision models miscount dense plans, and a bare number is <b>unverifiable</b>.</li>
+      </ul>
+      <p class="muted" style="font-size:26px; margin-top:auto;">Right: Nemotron's answer "6 doors" happens to be correct, but its boxes form an invented column. PlanProof's guard flags it as <span class="pill o">needs review</span>.</p>
+    </div>
+    <div class="col"><div class="fig"><img src="../assets/cubicasa_doors_review.png"></div></div>
+  </div>
+  <div class="footer"><span>Stoa figure: design-partner interviews, July 2026 (stoabuild.com)</span><span>2</span></div>
+</section>
+
+<!-- 3. Insight -->
+<section class="slide">
+  <div class="kicker">The idea</div>
+  <h2>Let the blueprint talk in its own language first.</h2>
+  <div class="q">Stoa answers with <b>the document and page behind every sentence</b>.<br>PlanProof adds <b>the symbol behind every number</b>.</div>
+  <div class="row roomy">
+    <div class="col"><h3>Most PDFs are exports.</h3><p class="muted">CAD and BIM files sit next to them in M-Files, SharePoint and Dalux. If we have the source, we read it, exactly and for free.</p></div>
+    <div class="col"><h3>Scans need vision.</h3><p class="muted">NVIDIA Nemotron Nano Omni returns <i>evidence</i>, not answers: a JSON inventory of boxes that Python validates and counts.</p></div>
+    <div class="col"><h3>Doubt is a feature.</h3><p class="muted">When the evidence looks wrong, PlanProof says <i>needs review</i> and shows its proposal, instead of a confident wrong number.</p></div>
+  </div>
+  <div class="footer"><span>PlanProof</span><span>3</span></div>
+</section>
+
+<!-- 4. Architecture -->
+<section class="slide">
+  <div class="kicker">How it works</div>
+  <h2>A router picks the most reliable source for every question.</h2>
+  <div class="route">
+    <div class="box" style="border-color:#bbf7d0;"><span class="pill g">1 · BIM</span><h3 style="margin-top:20px;">IFC take-off</h3><p>Plan rendered from an IFC model, or the .ifc itself</p><p class="muted">Storey/room/model scope, unit-scaled Qto sums, room areas, GlobalIds as evidence</p><p><b>0 tokens · 100%</b></p></div>
+    <div class="arrow">›</div>
+    <div class="box" style="border-color:#bbf7d0;"><span class="pill g">2 · CAD</span><h3 style="margin-top:20px;">DXF layers</h3><p>PDF with a same-named DXF</p><p class="muted">Entities counted per layer and mapped back onto the PDF page as numbered boxes</p><p><b>0 tokens · 99%</b></p></div>
+    <div class="arrow">›</div>
+    <div class="box" style="border-color:#d9f99d;"><span class="pill n">3 · Vision</span><h3 style="margin-top:20px;">Nemotron Nano Omni</h3><p>Scans and raster plans</p><p class="muted">Strict JSON evidence (0..1000 boxes), Python counting, de-duplication, invented-pattern guard, abstention</p><p><b>~1k tokens / question</b></p></div>
+  </div>
+  <div class="row" style="margin-top:40px; flex:none;">
+    <div class="col"><div class="card">Every route returns the same <code>Prediction</code>: answer · status (<i>answered</i> / <i>needs review</i>) · evidence with provenance (<code>dxf_entity</code>, <code>ifc_entity</code>, <code>model_prediction</code>) · justification · tokens and latency. All of it lands in one interactive review report.</div></div>
+  </div>
+  <div class="footer"><span>Questions in English, Finnish, German, French, Italian, Estonian and more</span><span>4</span></div>
+</section>
+
+<!-- 5. Visualization: DXF + IFC -->
+<section class="slide">
+  <div class="kicker">Reasoning you can verify · CAD and BIM</div>
+  <h2>"How many doors on this floor?" → 36, and here are all 36.</h2>
+  <div class="row">
+    <div class="col" style="flex:1.6;"><div class="fig"><img src="../assets/swiss_doors_dxf.png"></div><div class="cap">Held-out Swiss plan. Every box is a DXF door entity mapped onto the PDF; numbers match the review list. Expected 36, answered 36.</div></div>
+    <div class="col">
+      <h3>IFC: no guessing, full provenance</h3>
+      <div class="card">
+        <b>Q:</b> Net floor area of the room 'Bedroom (414B-5-003-001)' on '3. Level', in m²?<br><br>
+        <b>A: 10.71 m²</b> <span class="pill g">answered</span><br><br>
+        Evidence: <code>IfcSpace 414B-5-003-001</code><br>STEP #5838 · GlobalId <code>2J_oFeqlHDNPq7R3anXaug</code><br>Stored net area 10.71 m²
+      </div>
+      <p class="muted" style="font-size:26px;">A reviewer can open the model at that GlobalId and check in seconds. Route: <code>ifc-takeoff-v1</code>.</p>
+    </div>
+  </div>
+  <div class="footer"><span>Swiss Dwellings CC BY 4.0 · bimspeed Warmond IFC model</span><span>5</span></div>
+</section>
+
+<!-- 6. Visualization: Nemotron -->
+<section class="slide">
+  <div class="kicker">Reasoning you can verify · NVIDIA Nemotron on scans</div>
+  <h2>Nemotron proposes boxes. Python counts them, and flags anything that looks wrong.</h2>
+  <div class="row">
+    <div class="col"><div class="fig"><img src="../assets/cubicasa_toilets_vlm.png"></div><div class="cap"><span class="pill g">answered</span> "How many toilet bowls?" → 2, both boxed. Expected 2.</div></div>
+    <div class="col"><div class="fig"><img src="../assets/cubicasa_doors_review.png"></div><div class="cap"><span class="pill o">needs review</span> Six identical boxes along one line: the guard holds the answer back and shows the proposal (6) for a human to confirm.</div></div>
+  </div>
+  <div class="footer"><span>CubiCasa5K, CC BY-NC-SA 4.0 · model: nvidia/nemotron-3-nano-omni-30b-a3b-reasoning (thinking off, top_k 1)</span><span>6</span></div>
+</section>
+
+<!-- 7. Detector -->
+<section class="slide">
+  <div class="kicker">Creativity · what next year's models won't make obsolete</div>
+  <h2>CAD files are free training labels.</h2>
+  <div class="row">
+    <div class="col" style="flex:1.45;"><div class="fig"><img src="../assets/detector_swiss_heldout.png"></div><div class="cap">Held-out Swiss site: 37 doors found (DXF says 36), plus windows, WCs, basins, bathtubs.</div></div>
+    <div class="col"><div class="fig"><img src="../assets/detector_cubicasa.png"></div><div class="cap">Finnish CubiCasa scan, never seen in training: the boxes land on the real doors.</div></div>
+  </div>
+  <p style="font-size:28px; margin:24px 0 0;">YOLO11n, 2.6M parameters · 61k boxes generated from 526 DXFs, zero hand labelling · <b>mAP@50 0.89</b> on held-out sites · every CAD file Stoa connects makes it better.</p>
+  <div class="footer"><span>In training; not yet wired into the answer path</span><span>7</span></div>
+</section>
+
+<!-- 8. Results -->
+<section class="slide">
+  <div class="kicker">Accuracy</div>
+  <h2>Near-perfect where the source exists. Honest everywhere else.</h2>
+  <table>
+    <tr><th>Dataset</th><th>Questions (full set)</th><th>Accuracy</th><th>Route</th></tr>
+    <tr><td>Swiss Dwellings</td><td>37,584</td><td class="num" style="color:var(--green)">99.1%</td><td>DXF · 99.0% on 18,528 held-out questions</td></tr>
+    <tr><td>IFC models</td><td>3,062</td><td class="num" style="color:var(--green)">100%</td><td>IFC take-off · 3,062 / 3,062, 9 languages</td></tr>
+    <tr><td>CubiCasa5K scans</td><td>85,514</td><td class="num">43% <span style="font-size:26px; font-weight:400;">(55% of answered)</span></td><td>Nemotron Nano Omni</td></tr>
+    <tr><td>Opening Design sets</td><td>64</td><td class="num">12.5%</td><td>Nemotron Nano Omni</td></tr>
+  </table>
+  <p class="muted" style="font-size:24px; margin-top:30px;">Dataset scoring rules: exact counts, ±2% on areas, lengths and volumes. Sample of 805 questions, 6 whole drawings per folder, Swiss from held-out sites only. IFC-Bench free-text answers are not gradable by exact match.</p>
+  <div class="row" style="flex:none; margin-top:20px;">
+    <div class="col"><div class="card"><b>CubiCasa, mostly right:</b> floors, sinks, saunas, bedrooms, balconies.</div></div>
+    <div class="col"><div class="card"><b>CubiCasa, still 0%:</b> doors, windows, showers/bathtubs, WC rooms. These are exactly the symbols the detector learns.</div></div>
+  </div>
+  <div class="footer"><span>Next: detector on CubiCasa doors, windows and fixtures (the 0% categories today)</span><span>8</span></div>
+</section>
+
+<!-- 9. Cost -->
+<section class="slide">
+  <div class="kicker">Low inference cost</div>
+  <h2>The cheapest token is the one you never send.</h2>
+  <div class="row" style="flex:none; margin-bottom:60px;">
+    <div class="stat"><div class="big">0</div><p>tokens for ~1/3 of all questions (CAD/BIM routes), ~30 ms each on a laptop CPU</p></div>
+    <div class="stat"><div class="big">3B</div><p>active parameters: Nemotron 3 Nano Omni is a 30B mixture-of-experts</p></div>
+    <div class="stat"><div class="big">~1k</div><p>tokens per question on average over all 127k questions</p></div>
+    <div class="stat"><div class="big">0.5</div><p>requests per vision question: one cached inventory answers EN and FI</p></div>
+  </div>
+  <div class="row" style="flex:none;">
+    <div class="col"><div class="card"><b>Open weights → self-host in the EU.</b> The same config runs against NVIDIA's hosted API or a single-GPU vLLM server (<code>Nemotron-3-Nano-Omni-30B-A3B</code>), matching Stoa's "held in the EU, never trained on".</div></div>
+    <div class="col"><div class="card"><b>Every run is metered.</b> Tokens, retries, cache hits and API latency are logged per answer; runs resume after rate limits without paying twice.</div></div>
+  </div>
+  <div class="footer"><span>Token figures from measured requests: ~2.5k input + 0.7k output per vision request</span><span>9</span></div>
+</section>
+
+<!-- 10. Judging -->
+<section class="slide">
+  <div class="kicker">Judging criteria</div>
+  <h2>Built for all four, at 25% each.</h2>
+  <div class="crit">
+    <div class="box"><h3>Accuracy</h3><p>99–100% on CAD/BIM-backed drawings; abstains instead of guessing on scans; measured with the dataset's own scoring rules.</p></div>
+    <div class="box"><h3>Visualized reasoning</h3><p>Numbered boxes on the real page, IFC GlobalIds, route and one-line reason per answer; filters and review export in one HTML file.</p></div>
+    <div class="box"><h3>Creativity</h3><p>The blueprint's own source as ground truth; CAD files as free detector labels; a guard against invented evidence.</p></div>
+    <div class="box"><h3>Low inference cost</h3><p>0 tokens for a third of questions; 3B-active Nemotron for the rest; language-shared cache; open weights.</p></div>
+  </div>
+  <div class="footer"><span>PlanProof</span><span>10</span></div>
+</section>
+
+<!-- 11. Stoa fit and roadmap -->
+<section class="slide">
+  <div class="kicker">Why Stoa · what's next</div>
+  <h2>A Stoa skill: "count and prove".</h2>
+  <div class="row roomy">
+    <div class="col">
+      <h3>Fits how Stoa already works</h3>
+      <ul>
+        <li>Stoa syncs M-Files, SharePoint, Dalux: CAD/BIM sit beside the PDFs.</li>
+        <li>Stoa opens the drawing next to the answer; PlanProof adds the boxes.</li>
+        <li>Self-hosted Nemotron keeps drawings in the EU.</li>
+      </ul>
+    </div>
+    <div class="col">
+      <h3>Next two weeks</h3>
+      <ul>
+        <li>Wire the detector into the vision path for doors, windows and fixtures.</li>
+        <li>Read schedules from the PDF text layer (door and finish tables).</li>
+        <li>Draw IFC answers on the plan via the SVG sibling.</li>
+        <li>Fine-tune on reviewer decisions exported from the report.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer"><span>PlanProof</span><span>11</span></div>
+</section>
+
+<!-- 12. Close -->
+<section class="slide dark">
+  <div style="flex:1; display:flex; flex-direction:column; justify-content:center;">
+    <h1>PlanProof</h1>
+    <p style="font-size:54px; margin:24px 0 50px; font-weight:300;">Every number, with the proof drawn on it.</p>
+    <p class="muted" style="font-size:30px;">Code: github.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk<br>Demo: the review report in project_submission/demo</p>
+    <div class="logos"><span class="pill n">NVIDIA Nemotron 3 Nano Omni</span><span class="pill b">Stoa · Make Blueprints Talk</span></div>
+  </div>
+  <div class="footer"><span>Junction 2026</span><span>12</span></div>
+</section>
+
+</body>
+</html>

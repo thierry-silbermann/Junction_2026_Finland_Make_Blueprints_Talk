@@ -1,0 +1,66 @@
+{"path": "colorful-10052.png", "question": "How many doors are shown on this floor plan? Count doorways fitted with a door; open doorways without a door leaf do not count.", "answer": 5, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "Kuinka monta ovea pohjapiirustuksessa on? Laske oviaukot, joissa on ovi; pelkkiä oviaukkoja ilman ovilehteä ei lasketa.", "answer": 5, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "How many windows are shown on this floor plan?", "answer": 7, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "Kuinka monta ikkunaa pohjapiirustuksessa on?", "answer": 7, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "How many bedrooms (makuuhuone, usually marked MH) are on this floor plan?", "answer": 0, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "Kuinka monta makuuhuonetta (MH) pohjapiirustuksessa on?", "answer": 0, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "How many saunas are on this floor plan?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "Kuinka monta saunaa pohjapiirustuksessa on?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "How many toilet bowls (WC seats) are drawn on this floor plan?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "Kuinka monta WC-istuinta pohjapiirustukseen on piirretty?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "How many sinks and wash basins (kitchen and bathroom combined; a double-bowl sink counts as one) are drawn on this floor plan?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "Kuinka monta pesu- ja tiskiallasta (keittiö ja kylpytilat yhteensä; kaksoisallas lasketaan yhdeksi) pohjapiirustukseen on piirretty?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "How many floors (storeys) does this floor plan show?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10052.png", "question": "Kuinka monta kerrosta pohjapiirustuksessa on esitetty?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "How many windows are shown on this floor plan?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "Kuinka monta ikkunaa pohjapiirustuksessa on?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "How many bedrooms (makuuhuone, usually marked MH) are on this floor plan?", "answer": 0, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "Kuinka monta makuuhuonetta (MH) pohjapiirustuksessa on?", "answer": 0, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "How many saunas are on this floor plan?", "answer": 0, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "Kuinka monta saunaa pohjapiirustuksessa on?", "answer": 0, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "How many balconies (parveke, including glazed balconies) are on this floor plan?", "answer": 0, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "Kuinka monta parveketta (myös lasitetut parvekkeet) pohjapiirustuksessa on?", "answer": 0, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "How many toilet bowls (WC seats) are drawn on this floor plan?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "Kuinka monta WC-istuinta pohjapiirustukseen on piirretty?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "How many sinks and wash basins (kitchen and bathroom combined; a double-bowl sink counts as one) are drawn on this floor plan?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "Kuinka monta pesu- ja tiskiallasta (keittiö ja kylpytilat yhteensä; kaksoisallas lasketaan yhdeksi) pohjapiirustukseen on piirretty?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "How many showers and bathtubs are drawn on this floor plan in total?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "Kuinka monta suihkua ja kylpyammetta pohjapiirustukseen on piirretty yhteensä?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "How many floors (storeys) does this floor plan show?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10062.png", "question": "Kuinka monta kerrosta pohjapiirustuksessa on esitetty?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "How many doors are shown on this floor plan? Count doorways fitted with a door; open doorways without a door leaf do not count.", "answer": 16, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "Kuinka monta ovea pohjapiirustuksessa on? Laske oviaukot, joissa on ovi; pelkkiä oviaukkoja ilman ovilehteä ei lasketa.", "answer": 16, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "How many windows are shown on this floor plan?", "answer": 25, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "Kuinka monta ikkunaa pohjapiirustuksessa on?", "answer": 25, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "How many toilet bowls (WC seats) are drawn on this floor plan?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "Kuinka monta WC-istuinta pohjapiirustukseen on piirretty?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "How many sinks and wash basins (kitchen and bathroom combined; a double-bowl sink counts as one) are drawn on this floor plan?", "answer": 4, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "Kuinka monta pesu- ja tiskiallasta (keittiö ja kylpytilat yhteensä; kaksoisallas lasketaan yhdeksi) pohjapiirustukseen on piirretty?", "answer": 4, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "How many showers and bathtubs are drawn on this floor plan in total?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "Kuinka monta suihkua ja kylpyammetta pohjapiirustukseen on piirretty yhteensä?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "How many floors (storeys) does this floor plan show?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-10106.png", "question": "Kuinka monta kerrosta pohjapiirustuksessa on esitetty?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many doors are shown on this floor plan? Count doorways fitted with a door; open doorways without a door leaf do not count.", "answer": 9, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta ovea pohjapiirustuksessa on? Laske oviaukot, joissa on ovi; pelkkiä oviaukkoja ilman ovilehteä ei lasketa.", "answer": 9, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many windows are shown on this floor plan?", "answer": 5, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta ikkunaa pohjapiirustuksessa on?", "answer": 5, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many bedrooms (makuuhuone, usually marked MH) are on this floor plan?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta makuuhuonetta (MH) pohjapiirustuksessa on?", "answer": 2, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many kitchens (including kitchenettes, open kitchens and utility kitchens) are on this floor plan?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta keittiötä (myös keittokomerot, avo- ja tupakeittiöt sekä apukeittiöt) pohjapiirustuksessa on?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many bathrooms or washrooms (e.g. KH, KPH, PH, PESUH, SH) are on this floor plan, not counting separate WC rooms?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta kylpy- tai pesuhuonetta (esim. KH, KPH, PH, PESUH, SH) pohjapiirustuksessa on, erillisiä WC-tiloja lukuun ottamatta?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many separate WC rooms (toilet rooms marked WC) are on this floor plan?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta erillistä WC-tilaa pohjapiirustuksessa on?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many saunas are on this floor plan?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta saunaa pohjapiirustuksessa on?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many balconies (parveke, including glazed balconies) are on this floor plan?", "answer": 0, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta parveketta (myös lasitetut parvekkeet) pohjapiirustuksessa on?", "answer": 0, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many toilet bowls (WC seats) are drawn on this floor plan?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta WC-istuinta pohjapiirustukseen on piirretty?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many sinks and wash basins (kitchen and bathroom combined; a double-bowl sink counts as one) are drawn on this floor plan?", "answer": 3, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta pesu- ja tiskiallasta (keittiö ja kylpytilat yhteensä; kaksoisallas lasketaan yhdeksi) pohjapiirustukseen on piirretty?", "answer": 3, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many showers and bathtubs are drawn on this floor plan in total?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta suihkua ja kylpyammetta pohjapiirustukseen on piirretty yhteensä?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "How many floors (storeys) does this floor plan show?", "answer": 1, "unit": "count", "type": "count"}
+{"path": "colorful-1012.png", "question": "Kuinka monta kerrosta pohjapiirustuksessa on esitetty?", "answer": 1, "unit": "count", "type": "count"}

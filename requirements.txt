@@ -1,0 +1,9 @@
+# Client environment. Does not install model weights, CUDA, PyTorch or vLLM.
+# These direct dependency versions match the implementation validation environment.
+pydantic==2.13.4
+httpx==0.28.1
+Pillow==13.0.0
+PyYAML==6.0.3
+python-dotenv==1.2.2
+PyMuPDF==1.26.6
+-e .
