@@ -29,5 +29,5 @@ drawingqa = "drawingqa.cli:main"
 where = ["src"]
 
 [tool.setuptools.package-data]
-drawingqa = ["app/static/*"]
+drawingqa = ["app/static/*", "app/showcase.json"]
 

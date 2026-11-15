@@ -80,11 +80,16 @@ class AppTests(unittest.TestCase):
         (run / "summary.json").write_text(json.dumps(summarize([saved])))
         (run / "manifest.json").write_text("{}")
         self.factory = FakeFactory()
+        showcase = root / "showcase.json"
+        showcase.write_text(json.dumps([
+            {"title": "Plan · doors", "mode": "live", "expect": "exact", "path": "plans/plan.png",
+             "question": "How many doors are shown on this floor plan?", "answer": 2, "unit": "count"},
+            {"title": "Missing", "mode": "instant", "expect": "exact", "path": "plans/gone.png", "question": "x"}]))
         config = AppConfig(models={"test": ModelConfig(model="fake-vision")},
                            pipeline=PipelineConfig(cache_dir=str(root / "cache"), strategy="per_drawing"))
         app = create_app(config, self.data, runs_dir=root / "runs", output=root / "runs" / "live",
                          questions=self.data / "questions.jsonl", default_run="saved",
-                         provider_factory=self.factory, probe_models=False)
+                         provider_factory=self.factory, probe_models=False, showcase=showcase)
         self.client = TestClient(app)
 
     def tearDown(self):
@@ -111,6 +116,21 @@ class AppTests(unittest.TestCase):
         self.assertEqual(answer["route_label"], "Vision model")
         self.client.post("/api/ask", json={"path": "plans/plan.png", "model": "test", "question": "What colour is the roof?"})
         self.assertFalse(any("PRIVATE_EXPECTED_999" in call for call in self.factory.calls))
+
+    def test_fresh_ask_calls_the_model_again_and_keeps_the_cache(self):
+        question = {"path": "plans/plan.png", "model": "test", "question": "How many doors are shown on this floor plan?"}
+        self.assertTrue(self.client.post("/api/ask", json=question).json()["live"])
+        self.assertFalse(self.client.post("/api/ask", json=question).json()["live"])
+        fresh = self.client.post("/api/ask", json={**question, "fresh": True}).json()
+        self.assertTrue(fresh["live"])
+        self.assertEqual((fresh["answer"], fresh["correct"]), (2, True))
+        self.assertFalse(self.client.post("/api/ask", json=question).json()["live"])
+
+    def test_showcase_lists_only_drawings_that_exist(self):
+        examples = self.client.get("/api/showcase").json()["examples"]
+        self.assertEqual([e["title"] for e in examples], ["Plan · doors"])
+        self.assertEqual(examples[0]["dataset"], "plans")
+        self.assertEqual(self.client.get(examples[0]["thumb"]).status_code, 200)
 
     def test_upload_render_and_detect(self):
         buffer = io.BytesIO()

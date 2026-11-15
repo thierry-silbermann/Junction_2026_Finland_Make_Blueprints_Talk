@@ -115,7 +115,8 @@ def type_question(page: Page, text: str):
 
 def wait_app(page: Page, url: str):
     page.goto(url)
-    page.wait_for_selector(".sample", timeout=60000)
+    page.wait_for_selector("#samples .sample", state="attached", timeout=60000)
+    page.evaluate("document.querySelector('.more-samples').open = true")
     page.wait_for_timeout(1200)
 
 

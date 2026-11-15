@@ -27,7 +27,7 @@ MAX_SECONDS = 115
 # An int is a deck slide; a string is an app clip recorded by record_app.py.
 SEGMENTS = [
     (1, "Site engineers lose hours every day hunting through drawings. Stoa answers with the page behind every "
-        "sentence. PlanSight puts the symbol behind every number in plain sight."),
+        "sentence. PlanSight adds the symbol behind every number."),
     ("bench_problem", "Ask a vision model how many doors are on this plan. It says six, and is even right. "
                       "But look at its boxes: a straight column of doors that don't exist. "
                       "PlanSight holds that answer back for review, instead of guessing."),
@@ -45,7 +45,7 @@ SEGMENTS = [
                       "active parameters, with open weights we can self-host in the EU."),
     (7, "And what won't be obsolete next year: CAD files become free training labels. Our tiny detector already "
         "finds real doors on Finnish scans it has never seen."),
-    (12, "PlanSight. Every number, with the proof drawn on it."),
+    (12, "PlanSight. Ask any blueprint a question, in any language. Every answer in your drawings, in plain sight."),
 ]
 CLIP_FALLBACK = {"bench_problem": 2, "live_any": 6, "live_ask": 6, "live_dxf": 5, "bench_results": 8}
 ENCODE = ["-c:v", "libx264", "-crf", "18", "-pix_fmt", "yuv420p", "-r", "30",

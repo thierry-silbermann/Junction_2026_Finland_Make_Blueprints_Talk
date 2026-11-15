@@ -104,13 +104,16 @@ def flag_repeated_boxes(items: list[Evidence], minimum: int = 4) -> list[str]:
 
 
 class Pipeline:
-    def __init__(self, config: AppConfig, data_root: Path, output: Path, *, provider_factory=None):
+    def __init__(self, config: AppConfig, data_root: Path, output: Path, *, provider_factory=None,
+                 refresh: bool = False):
         self.config = config
         self.index = DatasetIndex(data_root)
         self.output = output.resolve()
         self.output.mkdir(parents=True, exist_ok=True)
         self.cache = ExtractionCache(Path(config.pipeline.cache_dir).expanduser())
         self.provider_factory = provider_factory or OpenAICompatibleProvider
+        # Refresh never reads model responses from the cache; it still writes them.
+        self.refresh = refresh
         self._failed_inventories: dict[str, str] = {}
 
     def predict(self, question: Question, model_alias: str) -> Prediction:
@@ -185,7 +188,7 @@ class Pipeline:
                               "prompt": prompt, "image": sha256_file(view.path),
                               "version": PROMPT_VERSION})
                 with self.cache.locked(key):
-                    output = self.cache.get(key)
+                    output = None if self.refresh else self.cache.get(key)
                     if output is not None:
                         result.usage.cached_requests += 1
                     else:
@@ -271,7 +274,7 @@ class Pipeline:
                 with self.cache.locked(key):
                     if key in self._failed_inventories:
                         return None, False, [self._failed_inventories[key]]
-                    found = self.cache.get(key, DrawingInventory)
+                    found = None if self.refresh else self.cache.get(key, DrawingInventory)
                     if found is not None:
                         usage.cached_requests += 1
                     else:

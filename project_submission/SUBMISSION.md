@@ -10,13 +10,11 @@ Copy each section into the matching field of the Junction submission form.
 
 ## Punchline
 
-**Every number from a drawing, with the proof drawn on it.**
+Paste this (200 characters max):
 
-Alternatives, if the form needs something shorter or different:
-
-- "Every answer in your drawings, in plain sight."
-- "Ask a drawing anything. See exactly what was counted."
-- "Blueprints that answer, and show their work."
+```text
+Ask any blueprint a question, in any language. Every answer in your drawings, in plain sight.
+```
 
 ## Short description (for cards and listings, ~300 characters)
 
@@ -24,33 +22,57 @@ PlanSight answers questions about construction drawings, in any language, and dr
 
 ## Description
 
-Site engineers spend hours a day hunting for facts buried in drawings: how many doors on level 3, what is the net area of this bedroom, how many WCs in the apartment. Stoa already answers project questions with *the document and page behind every sentence*. PlanSight takes that one step further for drawings: **the symbol behind every number.**
+Paste the text between the `description:start` and `description:end` markers (5,000 characters max, Markdown supported).
 
-**How it works.** Every question goes through a router that picks the most reliable source available:
+<!-- description:start -->
+Site engineers lose hours hunting through drawings: *how many doors on level 3? what is the net area of bedroom 003?* The answers hide in symbols, not text, and a vision model's bare number can't be checked. Stoa already answers with **the page behind every sentence**. PlanSight adds **the symbol behind every number**: boxed, numbered and clickable on the sheet, so a human can verify it in seconds.
 
-1. **The drawing's own source file.** Many drawings are exports from CAD or BIM. When a PDF has its DXF next to it, PlanSight counts the entities on the DXF layers and maps each one back onto the PDF page as a numbered box. When a plan was rendered from an IFC model, it answers from the model: counting doors and walls per storey, summing wall lengths, slab volumes and room areas, all unit-scaled. Each answer lists the IFC GlobalIds it used. No model call, no tokens, deterministic.
-2. **NVIDIA Nemotron 3 Nano Omni for everything else** (scans, raster plans). The model doesn't answer with a bare number. It returns an inventory of evidence boxes in strict JSON, and Python does the counting. The boxes are validated and de-duplicated, and a guard flags invented patterns, such as six "doors" stamped in a straight column. In those cases PlanSight returns *needs review* with its proposed answer, instead of a confident wrong number.
-3. **A small symbol detector (YOLO11n, 2.6M parameters)**, trained on labels generated *for free* from the Swiss DXF files, with no hand labelling. It reaches mAP@50 0.89 on held-out sites and already boxes the real doors on Finnish CubiCasa scans it never saw. This is the part next year's frontier models won't make obsolete: it gets cheaper and better with every CAD file Stoa ingests.
+### Five answers, five proofs
 
-**Verification is the product.** PlanSight ships as a two-tab web app, styled as a Stoa companion:
+- **Swiss plan**, *"How many doors?"* → **36**, all 36 numbered on the sheet. Read from the DXF: 0 tokens, 0.3 s.
+- **IFC model**, *"Net floor area of Bedroom 414B-5-003-001?"* → **10.71 m²**, citing `IfcSpace` GlobalId `2J_oFeqlHDNPq7R3anXaug`.
+- **Finnish apartment scan**, *"Kuinka monta pesu- ja tiskiallasta…?"* → **2**, washbasin and kitchen sink boxed. ✓ matches the dataset.
+- **A century-old archive scan**, *Detect everything* → 29 windows, rooms, stairs and fixtures, colour-coded in one click.
+- **The one we refuse**: Nemotron counts **6 doors** on a CubiCasa plan, and 6 is even right, but its boxes form a straight column through a hallway. A right number with wrong evidence is still unverifiable, so PlanSight holds it for review.
 
-- **Live blueprint.** Drop in any drawing (PNG, JPG or PDF), even a century-old archive scan. Press *Detect everything*, and Nemotron boxes every door, window, fixture, room and staircase, colour-coded with counts per kind. You can also type a question in English, Finnish or any other language. The answer comes back with numbered boxes on the page, a one-line reason, the route that answered (DXF · 0 tokens, IFC take-off, or Nemotron), its token cost, and a ✓ when the drawing is from the dataset and the answer matches.
-- **Benchmark.** Accuracy per dataset with the dataset's own scoring rules. Any image opens with its questions, the expected answer and the saved answer, and every question can be re-run live against the model.
+### How it works: the most reliable source wins
 
-A human can confirm or reject an answer in seconds. A static HTML review report (filters, review export, no server) is also published for every run.
+1. **CAD.** If a PDF ships with its DXF, PlanSight counts entities per layer and maps each one back onto the PDF as a numbered box. **0 tokens, deterministic.**
+2. **BIM.** Plans rendered from an IFC model are answered from the model: counts per storey, unit-scaled lengths, volumes and room areas, with IFC GlobalIds as evidence. **0 tokens.**
+3. **NVIDIA Nemotron 3 Nano Omni** for scans and raster plans. It never returns a bare number: it returns a strict-JSON inventory of boxes, and **Python does the counting**. Boxes are validated and de-duplicated, and a guard catches invented evidence (six "doors" stamped in a straight line). Then PlanSight answers *needs review* with its proposal, instead of a confident guess.
 
-**Results** (held-out sample, 805 questions across 5 dataset folders, dataset scoring rules: exact counts, 2% on areas):
+### Visualized reasoning: a live app, styled as a Stoa companion
 
-| Dataset | Questions in full set | Accuracy | Route |
-|---|---|---|---|
-| Swiss Dwellings | 37,584 | **99.1%** (99.0% on 18,528 held-out questions) | DXF layers |
-| IFC models (plans and .ifc) | 3,062 | **100%** (3,062 / 3,062, 9 languages) | IFC take-off |
-| CubiCasa5K scans | 85,514 | 43% final, 55% of answered | Nemotron Nano Omni |
-| Opening Design sets | 64 | 12.5% | Nemotron Nano Omni |
+- **Live blueprint.** Drop in any PNG, JPG or PDF, even a century-old archive scan. *Detect everything* boxes every door, window, fixture, room and staircase. Or ask in English, Finnish, German or French: the answer arrives with numbered boxes, a one-line reason, the route that answered (DXF, IFC or Nemotron), its token cost, and a ✓ when it matches the dataset.
+- **Benchmark.** Accuracy per dataset with the dataset's own scoring rules. Open any drawing, compare expected and saved answers, and re-run any question live.
+- A static review report with filters and a reviewer export is generated for every run.
 
-**Low inference cost.** About a third of all questions cost **0 tokens** and ~30 ms each on a laptop CPU. The vision path uses Nemotron 3 Nano Omni, a mixture-of-experts model with **3B active parameters** (30B total). It needs about 0.5 requests per question, because one cached evidence inventory answers both the English and the Finnish version of a question. That averages about **1,000 tokens per question** over the whole 127k-question dataset. A reduced-request mode goes further: one inventory per drawing answers every recognized question, with Python doing the counting, which **halves the requests on CubiCasa** (51 → 24 on our sample). Because Nemotron's weights are open, the same pipeline runs self-hosted on a single GPU in an EU region. A one-command script serves the FP8 checkpoint on a rented H100 (about $2.5/h), with the run cost reported in GPU-hours. That matches Stoa's promise that data is held in the EU and never trained on.
+### Accuracy
 
-**Why it fits Stoa.** Stoa connects to M-Files, SharePoint and Dalux, where CAD and BIM files sit next to their PDFs. PlanSight turns those pairs into exact answers. It also turns them into an ever-growing training set for the detector, which covers the scans that have no source file. PlanSight can ship as a Stoa skill: "count and prove".
+| Dataset | Accuracy | Route |
+|---|---|---|
+| IFC models | **100%** (3,062 / 3,062, 9 languages) | IFC take-off · 0 tokens |
+| Swiss Dwellings | **99.0%** on 18,528 held-out questions | DXF · 0 tokens |
+| CubiCasa5K scans | 43% final, **55% when it answers** | Nemotron |
+| Opening Design | 12.5% | Nemotron |
+
+Scored with the dataset's rules (exact counts, ±2% on areas); scan figures from an 805-question sample. PlanSight would rather abstain than guess: across that sample, **85% of the answers it gives are correct**, and the rest are flagged for review.
+
+### Low inference cost
+
+- **0 tokens** for about a third of all 127k questions (CAD and BIM routes), ~30 ms each on a laptop CPU.
+- **3B active parameters**: Nemotron 3 Nano Omni is a 30B mixture-of-experts.
+- **~1,000 tokens per question** on average. One cached inventory answers both the English and the Finnish version of a question, and a per-drawing mode **halves the requests on CubiCasa** (51 → 24).
+- **Open weights.** One command serves the FP8 checkpoint on a single rented H100 (~$2.5/h) in the EU, matching Stoa's promise: data held in the EU, never trained on.
+
+### Creativity: what next year's models won't make obsolete
+
+CAD files are free training labels. From 526 Swiss DXFs we generated 61k labelled boxes with zero hand labelling, and trained a 2.6M-parameter YOLO11n symbol detector: **mAP@50 0.89** on held-out sites. It already finds the real doors on Finnish scans it has never seen. It targets exactly the symbols vision models miss (doors, windows, fixtures), and every CAD file Stoa connects makes it better.
+
+### Why Stoa
+
+Stoa syncs M-Files, SharePoint and Dalux, where CAD and BIM files sit next to their PDFs. PlanSight turns those pairs into exact answers, and into training data for the scans that have none. It can ship as a Stoa skill: **count and prove.**
+<!-- description:end -->
 
 ## Challenge
 

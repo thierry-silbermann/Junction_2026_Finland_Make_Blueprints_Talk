@@ -9,6 +9,8 @@ browser ──HTTPS──► Caddy :443 (TLS + password) ──► drawingqa ser
                         └─► /report/  static review report
 ```
 
+Only need it online for a couple of hours, with no domain? Do steps 1–6, then follow [Quick option: a 2-hour demo over plain HTTP](#quick-option-a-2-hour-demo-over-plain-http) instead of steps 7 and 8.
+
 ## 1. Create the server
 
 In the Hetzner Cloud Console, choose **Add Server**:
@@ -91,6 +93,12 @@ ssh root@SERVER_IP chown -R plansight:plansight /opt/plansight/app
 
 To save disk space and upload time, you can copy only the folders the demo uses instead of all of `data/`: `questions.jsonl`, `cubicasa5k`, `swiss_dwellings`, `ifc_models`, `opening_design`, `ifc_bench`, `finna` and `europeana`. Sample tiles for missing folders simply won't appear.
 
+Before the jury sees it, re-verify the 10 examples in the Live tab on the server itself (after step 6). The live ones call Nemotron for real, so this confirms that the key and the network work:
+
+```bash
+cd /opt/plansight/app && sudo -u plansight .venv/bin/python scripts/curate_showcase.py
+```
+
 If you skip the cache copy, you can warm it on the server after step 6 (this calls the NVIDIA API once per sample):
 
 ```bash
@@ -110,6 +118,79 @@ NVIDIA_API_KEY=nvapi-...
 ```
 
 The app reads `.env` from its working directory, which is why the service below sets `WorkingDirectory`. Keep it `chmod 600`; never commit it.
+
+## Quick option: a 2-hour demo over plain HTTP
+
+This path needs no domain and no certificate. The app stops by itself after 2 hours, and you then delete the server. Do steps 1–6 first, then pick one of the two variants below.
+
+What you give up:
+
+- **Encryption.** Traffic, including uploaded drawings and the password, is unencrypted. That's fine for the public dataset drawings in the demo, but don't use it for client drawings.
+- **Protection of your API key, if there's no password.** Anyone who has the URL can run detections on your NVIDIA key. Share the link only with the jury, or use variant B.
+
+### Variant A: the app directly on port 8000 (simplest, no password)
+
+```bash
+# Open the port: in the Hetzner Cloud Firewall add inbound TCP 8000, and on the server:
+ufw allow 8000/tcp
+
+# Run for 2 hours, then stop automatically (survives closing your SSH session)
+systemd-run --unit plansight-demo --uid plansight --working-directory /opt/plansight/app \
+  -p RuntimeMaxSec=2h -p Environment=PYTHONUNBUFFERED=1 \
+  /opt/plansight/app/.venv/bin/drawingqa serve --host 0.0.0.0 --port 8000
+```
+
+Open `http://SERVER_IP:8000/`; the Benchmark tab is at `http://SERVER_IP:8000/#bench`.
+
+### Variant B: behind a password on port 80
+
+The app stays on `127.0.0.1` only, and Caddy adds a login in front of it, without HTTPS.
+
+```bash
+systemd-run --unit plansight-demo --uid plansight --working-directory /opt/plansight/app \
+  -p RuntimeMaxSec=2h -p Environment=PYTHONUNBUFFERED=1 \
+  /opt/plansight/app/.venv/bin/drawingqa serve --host 127.0.0.1 --port 8000
+```
+
+Install Caddy and create a password hash as in [step 8](#8-https-a-password-and-the-static-report-caddy). Then use this `/etc/caddy/Caddyfile`; the `:80` site address tells Caddy to serve plain HTTP on any hostname or IP, with no certificate:
+
+```caddy
+:80 {
+	basic_auth {
+		jury PASTE_THE_HASH_HERE
+	}
+
+	handle_path /report/* {
+		root * /opt/plansight/app/project_submission/demo
+		file_server
+	}
+
+	handle {
+		request_body {
+			max_size 60MB
+		}
+		reverse_proxy 127.0.0.1:8000
+	}
+}
+```
+
+```bash
+systemctl reload caddy
+```
+
+Open `http://SERVER_IP/` (the user is `jury`). The static report is at `http://SERVER_IP/report/`.
+
+### During and after the demo
+
+| Task | Command |
+|---|---|
+| Is it running, and how long is left? | `systemctl status plansight-demo` |
+| Logs | `journalctl -u plansight-demo -f` |
+| Stop early | `systemctl stop plansight-demo` |
+| Run another 2 hours | Run the same `systemd-run` command again |
+
+- **Before the jury arrives**, run `scripts/curate_showcase.py` (see step 5) to confirm the live examples answer correctly from this server.
+- **Afterwards, delete the server** in the Hetzner Console (*Server → Delete*). Hetzner bills by the hour, so 2 hours costs a few cents. Take a snapshot first if you want to bring it back later. Then check your usage on [build.nvidia.com](https://build.nvidia.com/), and rotate the API key if the URL was shared beyond the jury.
 
 ## 7. Run it as a service
 

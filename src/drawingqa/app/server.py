@@ -6,6 +6,7 @@ runs and re-runs single dataset questions. Ground truth is attached after infere
 from __future__ import annotations
 
 import concurrent.futures
+import copy
 import hashlib
 import json
 import os
@@ -32,6 +33,7 @@ from ..pipeline import Pipeline, add_usage
 from ..schemas import AppConfig, Question, Usage
 
 STATIC = Path(__file__).with_name("static")
+SHOWCASE = Path(__file__).with_name("showcase.json")
 UPLOAD_EXTENSIONS = {".png", ".jpg", ".jpeg", ".webp", ".pdf"}
 SERVABLE = {".png", ".jpg", ".jpeg", ".webp", ".gif"}
 MAX_UPLOAD_BYTES = 50 * 1024 * 1024
@@ -63,6 +65,12 @@ def is_correct(p: dict) -> bool | None:
         return None
     return p.get("status") == "answered" and p.get("answer") is not None and \
         answer_matches(p["answer"], p.get("expected_answer"), p.get("unit"))
+
+
+def proposal_matches(p: dict) -> bool:
+    """A held-for-review proposal that the dataset's scoring rule would accept."""
+    return bool(p.get("has_ground_truth")) and p.get("status") == "needs_review" and \
+        p.get("proposed_answer") is not None and answer_matches(p["proposed_answer"], p.get("expected_answer"), p.get("unit"))
 
 
 def _inside(base: Path, relative: str, allowed_roots: set[str]) -> Path:
@@ -157,6 +165,7 @@ class RunStore:
                 key = relative_of[p["path"]]
                 p["route_label"] = route_of(p)
                 p["correct"] = is_correct(p)
+                p["proposal_matches"] = proposal_matches(p)
                 p["page_urls"] = {page: f"/api/runs/{name}/files/{image}" for page, image in p["page_images"].items()}
                 if p["route_label"] not in {"Nemotron", "Vision model"} and p["status"] in {"answered", "needs_review"}:
                     zero_token += 1
@@ -209,6 +218,7 @@ class AskBody(BaseModel):
     question: str = Field(min_length=1, max_length=2000)
     model: str
     page: int | None = Field(default=None, ge=1)
+    fresh: bool = False
 
 
 class DetectBody(BaseModel):
@@ -221,12 +231,14 @@ class DetectBody(BaseModel):
 
 def create_app(config: AppConfig, data_root: Path, *, runs_dir: Path, output: Path,
                questions: Path | None = None, default_run: str | None = None,
-               provider_factory=None, probe_models: bool = True) -> FastAPI:
+               provider_factory=None, probe_models: bool = True, showcase: Path | None = SHOWCASE) -> FastAPI:
     output = output.resolve()
     uploads = output / "uploads"
     uploads.mkdir(parents=True, exist_ok=True)
     data_pipeline = Pipeline(config, data_root, output, provider_factory=provider_factory)
     upload_pipeline = Pipeline(config, uploads, output, provider_factory=provider_factory)
+    fresh_pipeline = copy.copy(data_pipeline)
+    fresh_pipeline.refresh, fresh_pipeline._failed_inventories = True, {}
     index = data_pipeline.index
     question_index = QuestionIndex(questions, index)
     runs = RunStore(runs_dir.resolve(), index, exclude={output.name} if output.parent == runs_dir.resolve() else set())
@@ -337,6 +349,19 @@ def create_app(config: AppConfig, data_root: Path, *, runs_dir: Path, output: Pa
                              "thumb": "/api/thumb?path=" + quote(p)} for p in unique],
                 "questions": SUGGESTED_QUESTIONS}
 
+    @app.get("/api/showcase")
+    def showcase_examples():
+        entries = json.loads(showcase.read_text(encoding="utf-8")) if showcase and showcase.is_file() else []
+        examples = []
+        for entry in entries:
+            path = entry.get("path", "")
+            if not (index.root / path).is_file():
+                continue
+            drawable = PurePosixPath(path).suffix.lower() != ".ifc"
+            examples.append({**entry, "dataset": path.split("/")[0], "name": PurePosixPath(path).name,
+                             "thumb": "/api/thumb?path=" + quote(path) if drawable else None})
+        return {"examples": examples}
+
     @app.get("/api/thumb")
     def thumb(path: str | None = None, upload: str | None = None):
         pipeline, reference = target(path, upload)
@@ -426,6 +451,8 @@ def create_app(config: AppConfig, data_root: Path, *, runs_dir: Path, output: Pa
     @app.post("/api/ask")
     def ask(body: AskBody):
         pipeline, reference = target(body.path, body.upload)
+        if body.fresh and pipeline is data_pipeline:
+            pipeline = fresh_pipeline
         alias = model_alias(body.model)
         known = question_index.find(reference, body.question) if body.path else None
         question = Question(path=reference, question=body.question, page=body.page,
@@ -441,6 +468,7 @@ def create_app(config: AppConfig, data_root: Path, *, runs_dir: Path, output: Pa
         payload["page_urls"] = {page: "/api/live/" + image for page, image in result.page_images.items()}
         payload["route_label"] = route_of(payload)
         payload["correct"] = is_correct(payload)
+        payload["proposal_matches"] = proposal_matches(payload)
         payload["live"] = result.usage.requests > 0
         payload["elapsed_seconds"] = elapsed
         return payload

@@ -46,6 +46,8 @@ const ROOM_TYPES = {bedroom: ['bedroom', 'bedrooms'], kitchen: ['kitchen', 'kitc
   living: ['living room', 'living rooms'], hallway: ['hallway', 'hallways'], storage: ['storage', 'storage rooms'], other: ['other room', 'other rooms']};
 const MODEL_LABELS = {nemotron_nvidia: 'Nemotron Nano Omni · NVIDIA API', nemotron_gpu: 'Nemotron Nano Omni · own H100',
   nemotron: 'Nemotron Nano Omni · local vLLM', qwen: 'Qwen3-VL 8B · local'};
+// The only backend validated end to end; the others are listed but not selectable yet.
+const TESTED_MODEL = 'nemotron_nvidia';
 const kindColor = kind => (KINDS[kind] || ['#2c412b'])[0];
 const plural = (n, pair) => n + ' ' + (n === 1 ? pair[0] : pair[1]);
 
@@ -195,9 +197,10 @@ function renderAnswer(container, p, viewer, options = {}) {
   const status = el('div', 'badges');
   status.append(el('span', 'badge ' + p.status, p.status.replace('_', ' ')));
   if (p.has_ground_truth) {
-    const proposedMatch = p.status === 'needs_review' && fmt(p.proposed_answer) === fmt(p.expected_answer);
+    const exact = fmt(p.proposed_answer) === fmt(p.expected_answer);
     status.append(p.correct ? el('span', 'badge right', '✓ matches ' + fmt(p.expected_answer))
-      : proposedMatch ? el('span', 'badge needs_review', 'proposal matches ' + fmt(p.expected_answer) + ' · held for review')
+      : p.proposal_matches ? el('span', 'badge needs_review', (exact ? 'proposal matches ' : 'proposal within tolerance of ')
+        + fmt(p.expected_answer) + ' · held for review')
       : el('span', 'badge wrong', '✗ expected ' + fmt(p.expected_answer)));
   }
   body.append(status);
@@ -252,9 +255,14 @@ async function loadModels() {
     const data = await api('/api/models');
     MODELS = data.models;
     const select = $('modelSelect');
-    select.replaceChildren(...MODELS.map(m => { const o = el('option', null, MODEL_LABELS[m.alias] || m.alias); o.value = m.alias; return o; }));
+    const usable = alias => !MODELS.some(m => m.alias === TESTED_MODEL) || alias === TESTED_MODEL;
+    select.replaceChildren(...MODELS.map(m => {
+      const o = el('option', null, (MODEL_LABELS[m.alias] || m.alias) + (usable(m.alias) ? '' : ' · coming soon'));
+      o.value = m.alias; o.disabled = !usable(m.alias);
+      return o;
+    }));
     const saved = localStorage.getItem('plansight-model');
-    select.value = MODELS.some(m => m.alias === saved) ? saved : data.default;
+    select.value = MODELS.some(m => m.alias === saved) && usable(saved) ? saved : usable(data.default) ? data.default : TESTED_MODEL;
     select.onchange = () => { localStorage.setItem('plansight-model', select.value); updateDot(); };
     updateDot();
   } catch (e) { toast('Could not load models: ' + e.message); }
@@ -293,7 +301,7 @@ function detectBoxes(result) {
 
 async function selectTarget(target, button) {
   live.target = target; live.detect = null; live.answer = null; live.focus = null;
-  for (const b of $('samples').querySelectorAll('.sample')) b.classList.toggle('active', b === button);
+  for (const b of document.querySelectorAll('#samples .sample, #showcase .example')) b.classList.toggle('active', b === button);
   $('liveTitle').textContent = target.name;
   $('liveSubtitle').textContent = target.dataset ? 'Dataset · ' + target.dataset : 'Your upload';
   $('kindChips').replaceChildren(); $('roomChips').replaceChildren(); $('detectMeta').textContent = '';
@@ -315,6 +323,16 @@ async function selectTarget(target, button) {
 }
 
 async function suggestQuestions(target) {
+  const verified = SHOWCASE.filter(e => target.path && e.path === target.path);
+  if (verified.length) {
+    $('suggestions').replaceChildren(...verified.map(e => {
+      const chip = el('button', 'chip', '✓ ' + e.title.split(' · ').pop());
+      chip.type = 'button'; chip.title = e.question;
+      chip.onclick = () => { $('askInput').value = e.question; ask(e.mode === 'live'); };
+      return chip;
+    }));
+    return;
+  }
   let questions = SUGGESTIONS;
   if (target.path) {
     try {
@@ -378,13 +396,14 @@ function renderDetect(result) {
   if (!result.items.length) toast('No objects were listed. Try another model or a sharper scan.', true);
 }
 
-async function ask() {
+async function ask(fresh = false) {
   const question = $('askInput').value.trim();
   if (!live.target || !question) return;
   $('askBtn').disabled = true;
-  liveViewer.busy(/^(kuinka|montako|mikä|paljonko)/i.test(question) ? 'Luetaan piirustusta' : 'Reading the drawing');
+  liveViewer.busy(fresh ? 'Live call · Nemotron is reading the drawing'
+    : /^(kuinka|montako|mikä|paljonko)/i.test(question) ? 'Luetaan piirustusta' : 'Reading the drawing');
   try {
-    const body = {...targetBody(live.target), question, model: currentModel()};
+    const body = {...targetBody(live.target), question, model: currentModel(), fresh};
     if (liveViewer.pageCount > 1) body.page = Number(liveViewer.page);
     const result = await post('/api/ask', body);
     live.answer = result;
@@ -425,7 +444,46 @@ $('fileInput').onchange = e => { upload(e.target.files[0]); e.target.value = '';
 document.addEventListener('dragover', e => e.preventDefault());
 document.addEventListener('drop', e => { if (!drop.contains(e.target)) { e.preventDefault(); if (e.dataTransfer.files[0]) upload(e.dataTransfer.files[0]); } });
 
-let SUGGESTIONS = [];
+let SUGGESTIONS = [], SHOWCASE = [];
+const UNITS = {m2: ' m²', m3: ' m³', m: ' m'};
+
+function exampleTag(e) {
+  if (e.expect === 'review') return ['needs_review', 'Held for review'];
+  if (e.mode === 'live') return ['live', 'Live · Nemotron'];
+  if (e.route === 'DXF') return ['instant', 'Instant · CAD'];
+  if (e.route && e.route.startsWith('IFC')) return ['instant', 'Instant · BIM'];
+  return ['cached', 'Instant · cached'];
+}
+
+async function loadShowcase() {
+  try {
+    SHOWCASE = (await api('/api/showcase')).examples;
+  } catch (e) { SHOWCASE = []; }
+  $('showcase').replaceChildren(...SHOWCASE.map(e => {
+    const button = el('button', 'example');
+    button.type = 'button'; button.title = e.question;
+    let thumb;
+    if (e.thumb) { thumb = el('img'); thumb.loading = 'lazy'; thumb.alt = ''; thumb.src = e.thumb; }
+    else thumb = el('span', 'ifc', 'IFC');
+    const [cls, label] = exampleTag(e);
+    const answer = el('span', 'ex-answer', (e.expect === 'review' ? '≈ ' : '') + fmt(e.answer) + (UNITS[e.unit] || ''));
+    const meta = el('div', 'ex-meta');
+    meta.append(answer, el('span', 'badge ' + cls, label));
+    const text = el('div');
+    text.append(el('div', 'ex-title', e.title), meta);
+    button.append(thumb, text);
+    button.onclick = async () => {
+      await selectTarget({path: e.path, name: e.name, dataset: e.dataset}, button);
+      $('askInput').value = e.question;
+      ask(e.mode === 'live');
+    };
+    return button;
+  }));
+  $('showcase').hidden = !SHOWCASE.length;
+  $('showcase').previousElementSibling.hidden = !SHOWCASE.length;
+  document.querySelector('.more-samples').open = !SHOWCASE.length;
+}
+
 async function loadSamples(run) {
   try {
     const data = await api('/api/samples' + (run ? '?run=' + encodeURIComponent(run) : ''));
@@ -689,6 +747,6 @@ window.addEventListener('hashchange', () => showTab(location.hash === '#bench' ?
   loadModels();
   let defaultRun = null;
   try { defaultRun = (await api('/api/runs')).default; } catch (e) { /* samples work without runs */ }
-  await loadSamples(defaultRun);
+  await Promise.all([loadShowcase(), loadSamples(defaultRun)]);
   showTab(location.hash === '#bench' ? 'bench' : 'live');
 })();

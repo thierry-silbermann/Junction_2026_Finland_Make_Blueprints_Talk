@@ -7,10 +7,11 @@ Everything needed for the final submission of the Stoa challenge *Make Blueprint
 | Project name, punchline, description | [SUBMISSION.md](SUBMISSION.md) | Ready to paste |
 | Challenge | [SUBMISSION.md](SUBMISSION.md#challenge) | Ready |
 | Technologies used | [SUBMISSION.md](SUBMISSION.md#technologies-used) | Ready |
-| 2-minute video pitch | [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md); draft video `PlanSight_pitch_draft.mp4` (1:40): the live app cut between 4 slides | Upload it (or dub your own voice over it); **paste the link** |
+| 2-minute video pitch | [VIDEO_SCRIPT.md](VIDEO_SCRIPT.md); draft video `PlanSight_pitch_draft.mp4` (1:43): the live app cut between 4 slides | Upload it (or dub your own voice over it); **paste the link** |
 | Demo link | `demo/index.html` (static review report, 805 real answers); the live app runs locally with `drawingqa serve` | Push the repo, then use the link below |
 | Source code link | <https://github.com/thierry-silbermann/Junction_2026_Finland_Make_Blueprints_Talk> | **Commit and push**; make the repo public |
 | Pitch deck (PDF) | `PlanSight_pitch_deck.pdf` (12 slides, 16:9) | Ready to upload |
+| Pitch deck (editable) | `PlanSight_pitch_deck.key` for Keynote, `PlanSight_pitch_deck.pptx` for PowerPoint or Google Slides | Edit, then *File → Export To → PDF* |
 
 ## Before you submit
 
@@ -25,11 +26,15 @@ Everything needed for the final submission of the Stoa challenge *Make Blueprint
 
 ```bash
 .venv/bin/pip install -e '.[app]'
-.venv/bin/python scripts/warm_demo.py      # optional: cache every sample so the demo is instant
+.venv/bin/python scripts/curate_showcase.py   # verify the 10 examples (calls the NVIDIA API)
 .venv/bin/drawingqa serve                  # http://127.0.0.1:8000/
 ```
 
-- **Live blueprint tab.** Upload any PNG, JPG or PDF, or pick a sample. Then press *Detect everything*, or ask a question.
+- **Live blueprint tab.** Upload any PNG, JPG or PDF, then press *Detect everything* or ask a question. Or click one of the **10 verified examples**. Each one opens the drawing and asks its question in one click:
+  - **8 exact matches.** Four are *instant*: Swiss doors from the DXF, Dutch room area and German door count from IFC, and a cached Finnish sinks answer. Four are *live*: a fresh Nemotron call on every click (Finnish toilets and balconies, US water closets and lavatories, 3–7 s each).
+  - **2 almost-perfect answers.** These are held for review with a proposal the dataset accepts: a Swiss net floor area of 273.58 m² against 272.99 m², and a US door-schedule count of 10.
+
+  The list is in `src/drawingqa/app/showcase.json`. It's written by `scripts/curate_showcase.py`, which re-asks every candidate in `scripts/showcase_candidates.json` and keeps a live example only if it is right on every fresh run (3 by default). Rerun it before the jury demo. Live examples need `NVIDIA_API_KEY`.
 - **Benchmark tab** (`/#bench`). Accuracy per dataset for `runs/per-folder-6-v2`. Open any image to see its questions and the saved answers, and re-run them live.
 - **Model picker.** Hosted NVIDIA API by default; the self-hosted Nemotron vLLM is the alternative.
 
@@ -50,4 +55,13 @@ YOLO_CONFIG_DIR=$PWD/.ultralytics .venv-detector/bin/python project_submission/b
 .venv/bin/python project_submission/build/build.py                 # deck PDF + draft video (Chrome, ffmpeg, say)
 ```
 
-Edit the slides in `build/deck.html` (Stoa palette, Gelasio and Hanken Grotesk). The order of slides and clips, and the narration, are in `build/build.py` (`SEGMENTS`) and mirror `VIDEO_SCRIPT.md`. The build fails if the video exceeds 1:55.
+### Editing the deck in Keynote
+
+Open `PlanSight_pitch_deck.key`. Every title, bullet, number, card and table is a native, editable object; the figures are images from `assets/`. Slides 1, 4, 7 and 12 carry the video narration as presenter notes. Install the fonts first by double-clicking the four `.ttf` files in `build/fonts/` (Gelasio and Hanken Grotesk, OFL). Otherwise Keynote substitutes a system font. To regenerate both files from scratch (this overwrites your Keynote edits):
+
+```bash
+.venv/bin/pip install python-pptx
+.venv/bin/python project_submission/build/make_keynote.py          # .pptx, then Keynote saves the .key
+```
+
+Once you edit in Keynote, the `.key` is the source of truth: export the PDF from Keynote and stop using `build.py` for the deck. `build.py` still renders the PDF and the video slides from `build/deck.html` (Stoa palette, Gelasio and Hanken Grotesk). The order of slides and clips, and the narration, are in `build/build.py` (`SEGMENTS`) and mirror `VIDEO_SCRIPT.md`. The build fails if the video exceeds 1:55.
